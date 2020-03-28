@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { view } from "react-easy-state";
+import { usePosition } from "use-position";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { MapStore, MapActions } from "./stores/map";
+import { Map } from "./components/Map";
+import { InitiateRequestButton } from "./components/InitiateRequestButton";
+import { InitiateRequestModal } from "./components/InitiateRequestModal";
+import { VerifyOTPModal } from "./components/VerifyOTPModal";
+import { CoordinatesAlert } from "./components/CoordinatesAlert";
+import {SubmitRequestModal} from "./components/SubmitRequestModal";
 
-export default App;
+
+export const App = view(() => {
+
+    const { latitude: lat, longitude: lng, timestamp, accuracy, errorMessage } = usePosition(false);
+
+    if (lat && lng) {
+        MapActions.setMarkerPosition(lat, lng);
+    }
+
+    return (
+        <>
+            <Map />
+            <CoordinatesAlert />
+            <InitiateRequestButton />
+            <InitiateRequestModal />
+            <VerifyOTPModal />
+            <SubmitRequestModal />
+        </>
+    );
+});
