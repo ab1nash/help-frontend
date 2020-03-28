@@ -4,7 +4,7 @@ import { AuthStore } from "./stores/auth";
 import {MapStore} from "./stores/map";
 
 
-const API_URL = "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_URL;
 
 
 export const sendOTP = async (phoneNumber: string) => {
