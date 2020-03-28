@@ -10,7 +10,7 @@ import * as api from "../api";
 export const VerifyOTPModal = view(() => {
 
     const [name, setName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState(localStorage.getItem('phoneNumber') || '');
     const [OTP, setOTP] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -25,6 +25,7 @@ export const VerifyOTPModal = view(() => {
         AuthActions.setUserToken(token);
         UIActions.setVerifyVisibility(false);
         UIActions.setSubmitVisibility(true);
+        localStorage.removeItem("phoneNumber");
     };
 
     const resendOTP = async () => {

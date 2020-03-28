@@ -19,6 +19,7 @@ export const InitiateRequestModal = view(() => {
         }
         setErrorMessage('');
         UIActions.setInitiateVisibility(false);
+        localStorage.setItem("phoneNumber", phoneNumber);
         UIActions.setVerifyVisibility(true);
     };
 
