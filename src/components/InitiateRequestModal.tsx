@@ -46,7 +46,7 @@ export const InitiateRequestModal = view(() => {
                 <Row className="w-100">
                     <Col className="px-0">
                         <Button variant="primary" onClick={moveToVerify}>
-                            Already have an OTP?
+                            Already have OTP?
                         </Button>
                     </Col>
                     <Col className="px-0 text-right">
