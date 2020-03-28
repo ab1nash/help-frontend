@@ -46,13 +46,13 @@ export const SubmitRequestModal = view(() => {
                     <Form.Group>
                         <Form.Label>Language</Form.Label>
                         <Form.Control as="select" onChange={(e: any) => setLanguage(e.target.value)}>
-                            {languages.map(l => <option value={l}>{l}</option>)}
+                            {languages.map(l => <option key={l} value={l}>{l}</option>)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Service</Form.Label>
                         <Form.Control as="select" value={service} onChange={(e: any) => setService(e.target.value)}>
-                            {services.map(s => <option value={s}>{s}</option>)}
+                            {services.map(s => <option key={s} value={s}>{s}</option>)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group>
