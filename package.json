@@ -9,6 +9,7 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "md5": "^2.2.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
@@ -38,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "@types/md5": "^2.1.33",
     "@types/use-position": "^0.0.0"
   }
 }
