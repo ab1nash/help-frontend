@@ -4,7 +4,7 @@ import { IUIStore } from "../interfaces";
 
 
 export const UIStore: IUIStore = store({
-    activeModal: 'submit'
+    activeModal: null
 });
 
 export const UIActions = {
