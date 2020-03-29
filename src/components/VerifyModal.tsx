@@ -7,7 +7,7 @@ import { AuthActions } from "../stores/auth";
 import * as api from "../api";
 
 
-export const VerifyOTPModal = view(() => {
+export const VerifyModal = view(() => {
 
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState(localStorage.getItem('phoneNumber') || '');

@@ -5,7 +5,7 @@ export interface IMapStore {
 }
 
 export interface IUIStore {
-    activeModal: null | 'initiate' | 'verify' | 'submit'
+    activeModal: null | 'opening-note' | 'initiate' | 'verify' | 'submit'
 }
 
 export interface IAuthStore {

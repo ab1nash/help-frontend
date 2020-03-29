@@ -6,7 +6,7 @@ import { UIActions, UIStore } from "../stores/ui";
 import * as api from "../api";
 
 
-export const InitiateRequestModal = view(() => {
+export const InitiateModal = view(() => {
 
     const [phoneNumber, setPhoneNumber] = useState('');
     const [errorMessage, setErrorMessage] = useState('');

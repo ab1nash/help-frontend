@@ -5,11 +5,12 @@ import { usePosition } from "use-position";
 import { MapStore, MapActions } from "./stores/map";
 import { Guard } from "./components/Guard";
 import { Map } from "./components/Map";
-import { InitiateRequestButton } from "./components/InitiateRequestButton";
-import { InitiateRequestModal } from "./components/InitiateRequestModal";
-import { VerifyOTPModal } from "./components/VerifyOTPModal";
+import { OpeningNoteModal } from "./components/OpeningNoteModal";
+import { InitiateButton } from "./components/InitiateButton";
+import { InitiateModal } from "./components/InitiateModal";
+import { VerifyModal } from "./components/VerifyModal";
 import { CoordinatesAlert } from "./components/CoordinatesAlert";
-import { SubmitRequestModal } from "./components/SubmitRequestModal";
+import { SubmitModal } from "./components/SubmitModal";
 
 
 export const App = view(() => {
@@ -22,10 +23,11 @@ export const App = view(() => {
         <Guard>
             <Map />
             <CoordinatesAlert />
-            <InitiateRequestButton />
-            <InitiateRequestModal />
-            <VerifyOTPModal />
-            <SubmitRequestModal />
+            <InitiateButton />
+            <OpeningNoteModal />
+            <InitiateModal />
+            <VerifyModal />
+            <SubmitModal />
         </Guard>
     );
 });

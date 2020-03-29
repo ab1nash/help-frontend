@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 
 import { UIActions } from "../stores/ui";
 
-export const InitiateRequestButton = view(() => {
+export const InitiateButton = view(() => {
 
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
 

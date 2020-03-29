@@ -6,7 +6,7 @@ import { UIActions, UIStore } from "../stores/ui";
 import * as api from "../api";
 
 
-export const SubmitRequestModal = view(() => {
+export const SubmitModal = view(() => {
 
     const languages = ["English", "Telugu", "Hindustani"];
     const services = ["Medical Emergency", "Grocery", "Food", "Money", "Utilities"];
