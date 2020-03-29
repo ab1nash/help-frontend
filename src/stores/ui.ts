@@ -11,16 +11,13 @@ export const UIActions = {
     hideModal() {
         UIStore.activeModal = null
     },
-    showOpeningNote() {
-        UIStore.activeModal = 'opening-note';
+    showOTP() {
+        UIStore.activeModal = 'otp';
     },
-    showInitiate() {
-        UIStore.activeModal = 'initiate';
+    showRequest() {
+        UIStore.activeModal = 'request';
     },
-    showVerify() {
-        UIStore.activeModal = 'verify';
-    },
-    showSubmit() {
-        UIStore.activeModal = 'submit';
+    showSuccess() {
+        UIStore.activeModal = 'success';
     }
 };

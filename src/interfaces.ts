@@ -5,10 +5,9 @@ export interface IMapStore {
 }
 
 export interface IUIStore {
-    activeModal: null | 'opening-note' | 'initiate' | 'verify' | 'submit'
+    activeModal: null | 'opening-note' | 'otp' | 'request' | 'success'
 }
 
 export interface IAuthStore {
-    userToken: string
-    adminToken: string
+    token: string
 }

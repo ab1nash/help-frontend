@@ -3,9 +3,18 @@ import { Modal, Button } from 'react-bootstrap';
 import { view } from 'react-easy-state';
 
 import { UIActions, UIStore } from "../stores/ui";
+import { AuthStore } from "../stores/auth";
 
 
 export const OpeningNoteModal = view(() => {
+
+    const enter = () => {
+        if (AuthStore.token) {
+            UIActions.hideModal();
+        } else {
+            UIActions.showOTP();
+        }
+    };
 
     return (
         <Modal show={UIStore.activeModal === 'opening-note'} onHide={UIActions.hideModal}>
@@ -22,7 +31,7 @@ export const OpeningNoteModal = view(() => {
                 </p>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="primary" onClick={UIActions.hideModal}>Enter</Button>
+                <Button variant="primary" onClick={enter}>Enter</Button>
             </Modal.Footer>
         </Modal>
     )

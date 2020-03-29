@@ -4,15 +4,12 @@ import {IAuthStore} from "../interfaces";
 
 
 export const AuthStore: IAuthStore = store({
-    adminToken: '',
-    userToken: ''
+    token: ''
 });
 
 export const AuthActions = {
-    setUserToken(userToken: string) {
-        AuthStore.userToken = userToken;
-    },
-    setAdminToken(adminToken: string) {
-        AuthStore.adminToken = adminToken;
+    setToken(token: string) {
+        AuthStore.token = token;
+        localStorage.setItem("token", token);
     }
 };

@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { view } from "react-easy-state";
 import { usePosition } from "use-position";
 
+import * as api from "./api";
 import { MapStore, MapActions } from "./stores/map";
+import { AuthActions } from "./stores/auth";
 import { Guard } from "./components/Guard";
 import { Map } from "./components/Map";
 import { OpeningNoteModal } from "./components/OpeningNoteModal";
 import { InitiateButton } from "./components/InitiateButton";
-import { InitiateModal } from "./components/InitiateModal";
-import { VerifyModal } from "./components/VerifyModal";
-import { CoordinatesAlert } from "./components/CoordinatesAlert";
-import { SubmitModal } from "./components/SubmitModal";
+import { OTPModal } from "./components/OTPModal";
+import { RequestModal } from "./components/RequestModal";
+import { InstructionsAlert } from "./components/InstructionsAlert";
+import { SuccessModal } from "./components/SuccessModal";
 
 
 export const App = view(() => {
@@ -19,15 +21,31 @@ export const App = view(() => {
 
     MapActions.setMarkerPosition(lat!, lng!);
 
+    useEffect(() => {
+        (async () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                return;
+            }
+            AuthActions.setToken(token);
+            try {
+                await api.checkToken();
+            } catch (e) {
+                AuthActions.setToken("");
+                return;
+            }
+        })();
+    }, []);
+
     return (
         <Guard>
+            <InstructionsAlert />
             <Map />
-            <CoordinatesAlert />
             <InitiateButton />
             <OpeningNoteModal />
-            <InitiateModal />
-            <VerifyModal />
-            <SubmitModal />
+            <OTPModal />
+            <RequestModal />
+            <SuccessModal />
         </Guard>
     );
 });
