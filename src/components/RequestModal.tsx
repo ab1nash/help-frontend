@@ -30,7 +30,7 @@ export const RequestModal = view(() => {
     };
 
     return (
-        <Modal show={UIStore.activeModal === "request"} onHide={UIActions.hideModal}>
+        <Modal scrollable show={UIStore.activeModal === "request"} onHide={UIActions.hideModal}>
             <Modal.Header closeButton>
                 <Modal.Title>Submit Request</Modal.Title>
             </Modal.Header>

@@ -35,11 +35,11 @@ export const OTPModal = view(() => {
         }
         setErrorMessage('');
         AuthActions.setToken(token);
-        UIActions.showRequest();
+        UIActions.hideModal();
     };
 
     return (
-        <Modal backdrop="static" show={UIStore.activeModal === 'otp'} onHide={UIActions.hideModal}>
+        <Modal scrollable backdrop="static" show={UIStore.activeModal === 'otp'} onHide={UIActions.hideModal}>
             <Modal.Header>
                 <Modal.Title>Verification</Modal.Title>
             </Modal.Header>

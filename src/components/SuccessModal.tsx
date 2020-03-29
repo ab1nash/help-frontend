@@ -8,7 +8,7 @@ import { UIActions, UIStore } from "../stores/ui";
 export const SuccessModal = view(() => {
 
     return (
-        <Modal show={UIStore.activeModal === 'success'} onHide={UIActions.hideModal}>
+        <Modal scrollable show={UIStore.activeModal === 'success'} onHide={UIActions.hideModal}>
             <Modal.Header closeButton>
                 <Modal.Title>Request Submitted</Modal.Title>
             </Modal.Header>

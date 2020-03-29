@@ -17,7 +17,7 @@ export const OpeningNoteModal = view(() => {
     };
 
     return (
-        <Modal show={UIStore.activeModal === 'opening-note'} onHide={UIActions.hideModal}>
+        <Modal scrollable show={UIStore.activeModal === 'opening-note'} onHide={UIActions.hideModal}>
             <Modal.Header closeButton>
                 <Modal.Title>Note</Modal.Title>
             </Modal.Header>
