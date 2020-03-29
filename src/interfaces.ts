@@ -5,11 +5,10 @@ export interface IMapStore {
 }
 
 export interface IUIStore {
-    isInitiateVisible: boolean
-    isVerifyVisible: boolean
-    isSubmitVisible: boolean
+    activeModal: null | 'initiate' | 'verify' | 'submit'
 }
 
 export interface IAuthStore {
     userToken: string
+    adminToken: string
 }

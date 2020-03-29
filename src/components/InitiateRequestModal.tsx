@@ -18,18 +18,12 @@ export const InitiateRequestModal = view(() => {
             return setErrorMessage(e.response.data || e.statusText || e.status);
         }
         setErrorMessage('');
-        UIActions.setInitiateVisibility(false);
         localStorage.setItem("phoneNumber", phoneNumber);
-        UIActions.setVerifyVisibility(true);
-    };
-
-    const moveToVerify = () => {
-        UIActions.setInitiateVisibility(false);
-        UIActions.setVerifyVisibility(true);
+        UIActions.showVerify();
     };
 
     return (
-        <Modal show={UIStore.isInitiateVisible} onHide={() => UIActions.setInitiateVisibility(false)}>
+        <Modal show={UIStore.activeModal === 'initiate'} onHide={UIActions.hideModal}>
             <Modal.Header closeButton>
                 <Modal.Title>Initiate Request</Modal.Title>
             </Modal.Header>
@@ -46,7 +40,7 @@ export const InitiateRequestModal = view(() => {
             <Modal.Footer>
                 <Row className="w-100">
                     <Col className="px-0">
-                        <Button variant="primary" onClick={moveToVerify}>
+                        <Button variant="primary" onClick={UIActions.showVerify}>
                             Already have OTP?
                         </Button>
                     </Col>

@@ -4,19 +4,20 @@ import { IUIStore } from "../interfaces";
 
 
 export const UIStore: IUIStore = store({
-    isInitiateVisible: false,
-    isVerifyVisible: false,
-    isSubmitVisible: false,
+    activeModal: 'submit'
 });
 
 export const UIActions = {
-    setInitiateVisibility(visibility: boolean) {
-        UIStore.isInitiateVisible = visibility;
+    hideModal() {
+        UIStore.activeModal = null
     },
-    setVerifyVisibility(visibility: boolean) {
-        UIStore.isVerifyVisible = visibility;
+    showInitiate() {
+        UIStore.activeModal = 'initiate';
     },
-    setSubmitVisibility(visibility: boolean) {
-        UIStore.isSubmitVisible = visibility;
+    showVerify() {
+        UIStore.activeModal = 'verify';
+    },
+    showSubmit() {
+        UIStore.activeModal = 'submit';
     }
 };

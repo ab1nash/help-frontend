@@ -23,8 +23,7 @@ export const VerifyOTPModal = view(() => {
         }
         setErrorMessage('');
         AuthActions.setUserToken(token);
-        UIActions.setVerifyVisibility(false);
-        UIActions.setSubmitVisibility(true);
+        UIActions.showSubmit();
         localStorage.removeItem("phoneNumber");
     };
 
@@ -38,7 +37,7 @@ export const VerifyOTPModal = view(() => {
     };
 
     return (
-        <Modal show={UIStore.isVerifyVisible} onHide={() => UIActions.setVerifyVisibility(false)}>
+        <Modal show={UIStore.activeModal === 'verify'} onHide={UIActions.hideModal}>
             <Modal.Header closeButton>
                 <Modal.Title>Verify OTP</Modal.Title>
             </Modal.Header>
@@ -71,7 +70,7 @@ export const VerifyOTPModal = view(() => {
                     </Col>
                     <Col className="px-0 text-right">
                         <Button variant="success" onClick={verifyOTP}>
-                            Verify
+                            Verify OTP
                         </Button>
                     </Col>
                 </Row>

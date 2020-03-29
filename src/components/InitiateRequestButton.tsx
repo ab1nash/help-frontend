@@ -9,7 +9,7 @@ export const InitiateRequestButton = view(() => {
     return (
         <Button
             variant="primary" className="position-absolute" style={{top: "10px", right: "10px"}} size="lg"
-            onClick={() => UIActions.setInitiateVisibility(true)} >
+            onClick={UIActions.showInitiate} >
             Initiate Request
         </Button>
     )

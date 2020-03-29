@@ -31,13 +31,12 @@ export const SubmitRequestModal = view(() => {
     };
 
     return (
-        <Modal show={UIStore.isSubmitVisible} onHide={() => UIActions.setSubmitVisibility(false)}>
+        <Modal show={UIStore.activeModal === "submit"} onHide={UIActions.hideModal}>
             <Modal.Header closeButton>
                 <Modal.Title>Submit Request</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    { requestID && <Alert variant="success">{ `Request ${requestID} submitted! :)` }</Alert> }
                     { errorMessage && <Alert variant="danger">{ errorMessage }</Alert> }
                     <Form.Group>
                         <Form.Label>Citizen Name</Form.Label>
@@ -70,12 +69,13 @@ export const SubmitRequestModal = view(() => {
                     </Form.Group>
                 </Form>
             </Modal.Body>
-            {!requestID &&
             <Modal.Footer>
-                <Button variant="success" onClick={submitRequest}>
-                    Submit Request
-                </Button>
-            </Modal.Footer>}
+                { requestID &&
+                <Alert className="w-100 text-center" variant="success">
+                    { `Request ${requestID} submitted! :)` }
+                </Alert> }
+                { !requestID && <Button variant="success" onClick={submitRequest}>Submit Request</Button> }
+             </Modal.Footer>
         </Modal>
     )
 });
