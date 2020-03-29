@@ -41,31 +41,37 @@ export const SubmitRequestModal = view(() => {
                     { errorMessage && <Alert variant="danger">{ errorMessage }</Alert> }
                     <Form.Group>
                         <Form.Label>Citizen Name</Form.Label>
-                        <Form.Control type="text" placeholder="Who needs help" value={citizenName} onChange={(e: any) => setCitizenName(e.target.value)} />
+                        <Form.Control type="text" placeholder="Who needs help" value={citizenName}
+                                      onChange={(e: any) => setCitizenName(e.target.value)} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Language</Form.Label>
-                        <Form.Control as="select" onChange={(e: any) => setLanguage(e.target.value)}>
+                        <Form.Control as="select"
+                                      onChange={(e: any) => setLanguage(e.target.value)}>
                             {languages.map(l => <option key={l} value={l}>{l}</option>)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Service</Form.Label>
-                        <Form.Control as="select" value={service} onChange={(e: any) => setService(e.target.value)}>
+                        <Form.Control as="select" value={service}
+                                      onChange={(e: any) => setService(e.target.value)}>
                             {services.map(s => <option key={s} value={s}>{s}</option>)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Address</Form.Label>
-                        <Form.Control as="textarea" placeholder="Address" value={address} onChange={(e: any) => setAddress(e.target.value)} />
+                        <Form.Control as="textarea" placeholder="Address" value={address}
+                                      onChange={(e: any) => setAddress(e.target.value)} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Comment</Form.Label>
-                        <Form.Control as="textarea" placeholder="Additional notes" value={comment} onChange={(e: any) => setComment(e.target.value)} />
+                        <Form.Control as="textarea" placeholder="Additional notes" value={comment}
+                                      onChange={(e: any) => setComment(e.target.value)} />
                     </Form.Group>
                 </Form>
             </Modal.Body>
-            {!requestID && <Modal.Footer>
+            {!requestID &&
+            <Modal.Footer>
                 <Button variant="success" onClick={submitRequest}>
                     Submit Request
                 </Button>

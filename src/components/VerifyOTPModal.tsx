@@ -47,15 +47,18 @@ export const VerifyOTPModal = view(() => {
                     { errorMessage && <Alert variant="danger">{ errorMessage }</Alert> }
                     <Form.Group>
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Who to call" value={name} onChange={(e: any) => setName(e.target.value)} />
+                        <Form.Control type="text" placeholder="Who to call" value={name}
+                                      onChange={(e: any) => setName(e.target.value)} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Phone Number</Form.Label>
-                        <Form.Control type="text" placeholder="Where to call" value={phoneNumber} onChange={(e: any) => setPhoneNumber(e.target.value)} />
+                        <Form.Control type="text" placeholder="Where to call" value={phoneNumber}
+                                      onChange={(e: any) => setPhoneNumber(e.target.value)} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>OTP</Form.Label>
-                        <Form.Control type="text" placeholder="OTP from SMS" value={OTP} onChange={(e: any) => setOTP(e.target.value)} />
+                        <Form.Control type="text" placeholder="OTP from SMS" value={OTP}
+                                      onChange={(e: any) => setOTP(e.target.value)} />
                     </Form.Group>
                 </Form>
             </Modal.Body>

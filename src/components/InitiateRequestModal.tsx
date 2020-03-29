@@ -38,7 +38,8 @@ export const InitiateRequestModal = view(() => {
                     { errorMessage && <Alert variant="danger">{ errorMessage }</Alert> }
                     <Form.Group>
                         <Form.Label>Phone Number</Form.Label>
-                        <Form.Control type="text" placeholder="Where to call" value={phoneNumber} onChange={(e: any) => setPhoneNumber(e.target.value)} />
+                        <Form.Control type="text" placeholder="Where to call" value={phoneNumber}
+                                      onChange={(e: any) => setPhoneNumber(e.target.value)} />
                     </Form.Group>
                 </Form>
             </Modal.Body>

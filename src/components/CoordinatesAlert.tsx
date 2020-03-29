@@ -7,12 +7,12 @@ import { MapStore } from "../stores/map";
 
 export const CoordinatesAlert = view(() => {
 
-    const lat = MapStore.lat;
-    const lng = MapStore.lng;
+    const { lat, lng } = MapStore;
     const height = "50px";
 
     return (
-        <Alert variant="success" className="position-absolute" style={{top: "70px", right: "10px", minHeight: height, maxHeight: height}}>
+        <Alert variant="success" className="position-absolute"
+               style={{top: "70px", right: "10px", minHeight: height, maxHeight: height}}>
             {lat}, {lng}
         </Alert>
     )

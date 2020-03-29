@@ -14,11 +14,9 @@ import { SubmitRequestModal } from "./components/SubmitRequestModal";
 
 export const App = view(() => {
 
-    const { latitude: lat, longitude: lng, timestamp, accuracy, errorMessage } = usePosition(false);
+    const { latitude: lat, longitude: lng } = usePosition(false);
 
-    if (lat && lng) {
-        MapActions.setMarkerPosition(lat, lng);
-    }
+    MapActions.setMarkerPosition(lat!, lng!);
 
     return (
         <Guard>
