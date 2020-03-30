@@ -38,7 +38,7 @@ export const App = view(() => {
     }, []);
 
     return (
-        <Guard>
+        <>
             <InstructionsAlert />
             <Map />
             <InitiateButton />
@@ -46,6 +46,6 @@ export const App = view(() => {
             <OTPModal />
             <RequestModal />
             <SuccessModal />
-        </Guard>
+        </>
     );
 });
