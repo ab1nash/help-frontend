@@ -19,7 +19,19 @@ export const RequestModal = view(() => {
     const [comment, setComment] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
+    const validate = () => {
+        if (citizenName && language && contactNumber && service && address) {
+            return true;
+        } else {
+            setErrorMessage("Please fill all the fields");
+            return false;
+        }
+    };
+
     const submitRequest = async () => {
+        if (!validate()) {
+            return;
+        }
         try {
             await api.submitRequest(citizenName, contactNumber, language, service, address, comment);
         } catch (e) {
