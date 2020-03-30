@@ -39,7 +39,7 @@ export const OTPModal = view(() => {
     };
 
     return (
-        <Modal scrollable backdrop="static" show={UIStore.activeModal === 'otp'} onHide={UIActions.hideModal}>
+        <Modal scrollable show={UIStore.activeModal === 'otp'} onHide={UIActions.hideModal}>
             <Modal.Header>
                 <Modal.Title>Verification</Modal.Title>
             </Modal.Header>
