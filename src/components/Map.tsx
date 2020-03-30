@@ -34,7 +34,8 @@ export const Map = view(() => {
     return (
         <LoadScript googleMapsApiKey={googleMapsAPIKey} libraries={libraries}>
             <GoogleMap zoom={17} center={{lat, lng}}
-                       mapContainerStyle={{maxWidth: "100%", minHeight: "100vh"}} options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
+                       mapContainerStyle={{height: "100vh"}}
+                       options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
                 <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
                     <Form.Control type="text" placeholder="Search" className="position-absolute"
                                   style={{width: "360px", height: "50px", top: isTabletOrMobile ? "100px" : "10px", left: "calc(50% - 180px)"}} />
