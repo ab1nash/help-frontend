@@ -14,18 +14,23 @@ api.interceptors.request.use(cfg => {
 });
 
 
-export const sendOTP = async (name: string, phoneNumber: string) => {
-    const response = await api.post("/user/claim", { name, phoneNumber });
+export const sendOTP = async (name: string, phoneNumber: string, about: string) => {
+    const response = await api.post("/user/claim", { name, phoneNumber, about });
     console.log(response.data);
 };
 
-export const verifyOTP = async (name: string, phoneNumber: string, otp: string): Promise<string> => {
-    const response = await api.post("/user/verify", { name, phoneNumber, otp });
+export const verifyOTP = async (name: string, phoneNumber: string, otp: string, about: string): Promise<string> => {
+    const response = await api.post("/user/verify", { name, phoneNumber, otp, about });
     return response.data;
 };
 
 export const checkToken = async () => {
     const response = await api.get("/user/check");
+    return response.data;
+};
+
+export const listRequests = async () => {
+    const response = await api.get("/request/list");
     return response.data;
 };
 
@@ -35,12 +40,11 @@ export const submitRequest = async (citizenName: string, contactNumber: string,
     const location = JSON.stringify({
         lat: MapStore.lat,
         lng: MapStore.lng,
-        address
     });
     const response = await api.post("/request/create", {
         citizenName, contactNumber,
         language, service,
-        comment, location
+        comment, location, address
     });
     return response.data;
 };

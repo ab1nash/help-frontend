@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Modal, Form, Button, Alert } from 'react-bootstrap';
+import React, {useState, useRef, useEffect} from 'react';
 import { view } from 'react-easy-state';
+import { withRouter } from 'react-router-dom';
+import {Alert, Form, Card, Button, Row, Col, Modal} from "react-bootstrap";
 
-import { UIActions, UIStore } from "../stores/ui";
 import * as api from "../api";
 
 
-export const RequestModal = view(() => {
+export const RequestForm = withRouter(view((props: any) => {
 
     const languages = ["English", "Telugu", "Hindustani"];
     const services = ["Medical Emergency", "Grocery", "Food", "Money", "Utilities"];
@@ -19,36 +19,38 @@ export const RequestModal = view(() => {
     const [comment, setComment] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const validate = () => {
-        if (citizenName && language && contactNumber && service && address) {
-            return true;
-        } else {
-            setErrorMessage("Please fill all the fields");
-            return false;
-        }
-    };
+    const errorRef = useRef(null);
 
     const submitRequest = async () => {
-        if (!validate()) {
-            return;
-        }
+        setErrorMessage('');
         try {
             await api.submitRequest(citizenName, contactNumber, language, service, address, comment);
         } catch (e) {
             return setErrorMessage(e.response.data || e.statusText || e.status);
         }
         setErrorMessage('');
-        UIActions.showSuccess();
+        props.history.push("/");
     };
 
+    // scroll to error
+    useEffect(() => {
+        if (errorMessage) {
+            // @ts-ignore
+            errorRef.current.scrollIntoView({ behavior: "smooth" })
+        }
+    }, [errorMessage]);
+
     return (
-        <Modal scrollable show={UIStore.activeModal === "request"} onHide={UIActions.hideModal}>
-            <Modal.Header closeButton>
-                <Modal.Title>Submit Request</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
+        <Card className="h-100 mx-auto" style={{maxWidth: "600px"}}>
+            <Card.Header>Create Request</Card.Header>
+            <Card.Body className="overflow-auto">
                 <Form>
-                    { errorMessage && <Alert variant="danger">{ errorMessage }</Alert> }
+                    <p>
+                        Please drag the red marker to the location where assistance is needed,
+                        and fill all the fields.
+                    </p>
+                    <hr />
+                    { errorMessage && <Alert variant="danger" ref={errorRef}>{ errorMessage }</Alert> }
                     <Form.Group>
                         <Form.Label>Citizen Name</Form.Label>
                         <Form.Control type="text" placeholder="Who needs help" value={citizenName}
@@ -84,10 +86,21 @@ export const RequestModal = view(() => {
                                       onChange={(e: any) => setComment(e.target.value)} />
                     </Form.Group>
                 </Form>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="success" onClick={submitRequest}>Submit Request</Button>
-             </Modal.Footer>
-        </Modal>
+            </Card.Body>
+            <Card.Footer>
+                <Row className="w-100 mx-0">
+                    <Col className="px-0">
+                        <Button variant="light" onClick={() => props.history.push("/")}>
+                            Back to List
+                        </Button>
+                    </Col>
+                    <Col className="px-0 text-right">
+                        <Button variant="success" onClick={submitRequest}>
+                            Submit
+                        </Button>
+                    </Col>
+                </Row>
+            </Card.Footer>
+        </Card>
     )
-});
+}));

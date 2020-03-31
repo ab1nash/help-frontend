@@ -4,12 +4,16 @@ import {IAuthStore} from "../interfaces";
 
 
 export const AuthStore: IAuthStore = store({
-    token: ''
+    token: null
 });
 
 export const AuthActions = {
-    setToken(token: string) {
+    setToken(token: string | null) {
         AuthStore.token = token;
-        localStorage.setItem("token", token);
+        if (token) {
+            localStorage.setItem("token", token);
+        } else {
+            localStorage.removeItem("token");
+        }
     }
 };

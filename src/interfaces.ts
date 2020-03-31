@@ -9,5 +9,5 @@ export interface IUIStore {
 }
 
 export interface IAuthStore {
-    token: string
+    token: string | null
 }

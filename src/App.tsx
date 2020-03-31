@@ -1,51 +1,48 @@
 import React, { useEffect } from 'react';
 import { view } from "react-easy-state";
 import { usePosition } from "use-position";
+import { Container } from 'react-bootstrap';
+import { Switch, Route, Redirect } from "react-router-dom";
 
-import * as api from "./api";
 import { MapStore, MapActions } from "./stores/map";
 import { AuthActions } from "./stores/auth";
-import { Guard } from "./components/Guard";
 import { Map } from "./components/Map";
-import { OpeningNoteModal } from "./components/OpeningNoteModal";
-import { InitiateButton } from "./components/InitiateButton";
-import { OTPModal } from "./components/OTPModal";
-import { RequestModal } from "./components/RequestModal";
-import { InstructionsAlert } from "./components/InstructionsAlert";
-import { SuccessModal } from "./components/SuccessModal";
+import { RegistrationForm } from "./components/RegistrationForm";
+import { RequestList } from "./components/RequestList";
+import {RequestForm} from "./components/RequestForm";
+import {ProtectedRoute} from "./components/ProtectedRoute";
 
 
 export const App = view(() => {
 
     const { latitude: lat, longitude: lng } = usePosition(false);
 
-    MapActions.setMarkerPosition(lat!, lng!);
+    AuthActions.setToken(localStorage.getItem("token"));
 
+    // set marker from location
     useEffect(() => {
-        (async () => {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                return;
-            }
-            AuthActions.setToken(token);
-            try {
-                await api.checkToken();
-            } catch (e) {
-                AuthActions.setToken("");
-                return;
-            }
-        })();
-    }, []);
+        if (lat && lng) {
+            MapActions.setMarkerPosition(lat, lng);
+        }
+    }, [lat, lng]);
 
     return (
         <>
-            <InstructionsAlert />
             <Map />
-            <InitiateButton />
-            <OpeningNoteModal />
-            <OTPModal />
-            <RequestModal />
-            <SuccessModal />
+            <Container style={{height: "50vh"}} className="px-0">
+                <Switch>
+                    <ProtectedRoute exact path="/">
+                        <RequestList />
+                    </ProtectedRoute>
+                    <Route path="/register">
+                        <RegistrationForm />
+                    </Route>
+                    <ProtectedRoute path="/create">
+                        <RequestForm />
+                    </ProtectedRoute>
+                    <Redirect to="/" />
+                </Switch>
+            </Container>
         </>
     );
 });
