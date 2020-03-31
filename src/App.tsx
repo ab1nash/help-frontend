@@ -30,8 +30,7 @@ export const App = view(() => {
     return (
         <>
             <Map />
-            <Div100vh>
-                <Container style={{height: "50rvh"}} className="px-0">
+            <Div100vh style={{height: "50rvh"}}>
                 <Switch>
                     <ProtectedRoute exact path="/">
                         <RequestList />
@@ -44,7 +43,6 @@ export const App = view(() => {
                     </ProtectedRoute>
                     <Redirect to="/" />
                 </Switch>
-            </Container>
             </Div100vh>
         </>
     );
