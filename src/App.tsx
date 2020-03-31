@@ -3,6 +3,7 @@ import { view } from "react-easy-state";
 import { usePosition } from "use-position";
 import { Container } from 'react-bootstrap';
 import { Switch, Route, Redirect } from "react-router-dom";
+import Div100vh from 'react-div-100vh';
 
 import { MapStore, MapActions } from "./stores/map";
 import { AuthActions } from "./stores/auth";
@@ -29,7 +30,8 @@ export const App = view(() => {
     return (
         <>
             <Map />
-            <Container style={{height: "50vh"}} className="px-0">
+            <Div100vh>
+                <Container style={{height: "50rvh"}} className="px-0">
                 <Switch>
                     <ProtectedRoute exact path="/">
                         <RequestList />
@@ -43,6 +45,7 @@ export const App = view(() => {
                     <Redirect to="/" />
                 </Switch>
             </Container>
+            </Div100vh>
         </>
     );
 });

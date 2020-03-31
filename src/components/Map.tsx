@@ -3,6 +3,7 @@ import { view } from 'react-easy-state';
 import { useLocation } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api'
+import Div100vh from 'react-div-100vh';
 
 import { MapStore, MapActions } from "../stores/map";
 
@@ -33,16 +34,18 @@ export const Map = view((props: any) => {
 
     return (
         <LoadScript googleMapsApiKey={googleMapsAPIKey} libraries={libraries}>
-            <GoogleMap zoom={17} center={{lat, lng}}
-                       mapContainerStyle={{height: "50vh"}}
-                       options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
-                <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
-                    <Form.Control type="text" placeholder="Search" className="position-absolute"
-                                  style={{width: "360px", height: "50px", top: "10px", left: "calc(50% - 180px)"}} />
-                </StandaloneSearchBox>
-                {location.pathname === "/create" &&
-                <Marker position={{lat, lng}} draggable={true} onDragEnd={onDragEnd} />}
-            </GoogleMap>
+            <Div100vh>
+                <GoogleMap zoom={17} center={{lat, lng}}
+                           mapContainerStyle={{height: "50rvh"}}
+                           options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
+                    <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
+                        <Form.Control type="text" placeholder="Search" className="position-absolute"
+                                      style={{width: "360px", height: "50px", top: "10px", left: "calc(50% - 180px)"}} />
+                    </StandaloneSearchBox>
+                    {location.pathname === "/create" &&
+                    <Marker position={{lat, lng}} draggable={true} onDragEnd={onDragEnd} />}
+                </GoogleMap>
+            </Div100vh>
         </LoadScript>
     )
 });
