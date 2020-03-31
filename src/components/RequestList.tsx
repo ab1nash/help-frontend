@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import _ from "lodash";
 import { view } from 'react-easy-state';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Card, Button, Row, Col, ButtonGroup, DropdownButton, Dropdown } from "react-bootstrap";
 
 import * as api from "../api";
 
 
-export const RequestList = withRouter(view((props: any) => {
+export const RequestList = view(() => {
 
     const [requests, setRequests] = useState([]);
     const [services, setServices] = useState([]);
@@ -18,6 +18,8 @@ export const RequestList = withRouter(view((props: any) => {
         "Cancelled": true
     });
     const [filteredRequests, setFilteredRequests] = useState([]);
+
+    const history = useHistory();
 
     useEffect(() => {
         (async () => {
@@ -61,7 +63,7 @@ export const RequestList = withRouter(view((props: any) => {
                 <Row>
                     <Col className="my-auto">My Requests</Col>
                     <Col className="text-right">
-                        <Button variant="primary" className="mx-auto" onClick={() => props.history.push("/create")}>
+                        <Button variant="primary" className="mx-auto" onClick={() => history.push("/create")}>
                             New Request
                         </Button>
                     </Col>
@@ -91,7 +93,7 @@ export const RequestList = withRouter(view((props: any) => {
                 </Row>
                 <hr />
                 {filteredRequests.map((request: any) => (
-                    <Card bg="light" key={request.id} text="dark" className="mb-3">
+                    <Card bg="light" key={request.id} text="dark" className="mb-3" onClick={() => history.push(`/view/${request.id}`)}>
                         <Card.Header>
                             <Row>
                                 <Col>Request {request.id}</Col>
@@ -113,4 +115,4 @@ export const RequestList = withRouter(view((props: any) => {
             </Card.Body>
         </Card>
     )
-}));
+});

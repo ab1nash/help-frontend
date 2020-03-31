@@ -33,8 +33,36 @@ export const checkToken = async () => {
     return response.data;
 };
 
+export const getRequest = async (id: string) => {
+    const response = await api.get("/request/get", {
+        params: { id }
+    });
+    return response.data;
+};
+
 export const listRequests = async () => {
     const response = await api.get("/request/list");
+    return response.data;
+};
+
+export const updateRequestStatus = async (id: string, stamps: any): Promise<void> => {
+    await api.post("/request/updateStatus", stamps, { params: { id } });
+};
+
+export const updateRequest = async (id: string, citizenName: string, contactNumber: string,
+                                    language: string, service: string,
+                                    address: string, comment: string): Promise<string> => {
+    const location = JSON.stringify({
+        lat: MapStore.lat,
+        lng: MapStore.lng,
+    });
+    const response = await api.post("/request/update", {
+        citizenName, contactNumber,
+        language, service,
+        comment, location, address
+    }, {
+        params: { id }
+    });
     return response.data;
 };
 

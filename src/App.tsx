@@ -38,8 +38,11 @@ export const App = view(() => {
                     <Route path="/register">
                         <RegistrationForm />
                     </Route>
+                    <ProtectedRoute path="/view/:id">
+                        <RequestForm fill={true} />
+                    </ProtectedRoute>
                     <ProtectedRoute path="/create">
-                        <RequestForm />
+                        <RequestForm fill={false} />
                     </ProtectedRoute>
                     <Redirect to="/" />
                 </Switch>
