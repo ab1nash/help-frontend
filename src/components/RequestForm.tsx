@@ -57,7 +57,16 @@ export const RequestForm = withRouter(view((props: any) => {
 
     return (
         <Card className="h-100 mx-auto" style={{maxWidth: "600px"}}>
-            <Card.Header>Create Request</Card.Header>
+            <Card.Header>
+                <Row>
+                    <Col className="my-auto">Create Request</Col>
+                    <Col className="text-right">
+                        <Button variant="outline-dark" onClick={() => props.history.push("/")}>
+                            Back to List
+                        </Button>
+                    </Col>
+                </Row>
+            </Card.Header>
             <Card.Body className="overflow-auto">
                 <Form>
                     <p>
@@ -101,18 +110,11 @@ export const RequestForm = withRouter(view((props: any) => {
                                       onChange={(e: any) => setComment(e.target.value)} />
                     </Form.Group>
                 </Form>
-                <Row className="w-100 mx-0">
-                    <Col className="px-0">
-                        <Button variant="light" onClick={() => props.history.push("/")}>
-                            Back to List
-                        </Button>
-                    </Col>
-                    <Col className="px-0 text-right">
-                        <Button variant="success" onClick={submitRequest}>
-                            Submit
-                        </Button>
-                    </Col>
-                </Row>
+                <div className="text-right">
+                    <Button variant="success" onClick={submitRequest}>
+                        Submit
+                    </Button>
+                </div>
             </Card.Body>
         </Card>
     )

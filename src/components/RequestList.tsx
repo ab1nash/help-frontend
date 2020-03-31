@@ -57,7 +57,16 @@ export const RequestList = withRouter(view((props: any) => {
 
     return (
         <Card className="h-100 mx-auto" style={{maxWidth: "600px"}}>
-            <Card.Header>My Requests</Card.Header>
+            <Card.Header>
+                <Row>
+                    <Col className="my-auto">My Requests</Col>
+                    <Col className="text-right">
+                        <Button variant="primary" className="mx-auto" onClick={() => props.history.push("/create")}>
+                            New Request
+                        </Button>
+                    </Col>
+                </Row>
+            </Card.Header>
             <Card.Body className="overflow-auto">
 
                 <Row className="justify-content-around">
@@ -101,11 +110,6 @@ export const RequestList = withRouter(view((props: any) => {
                         </Card.Footer>
                     </Card>
                 ))}
-                <div className="text-center">
-                    <Button variant="primary" onClick={() => props.history.push("/create")}>
-                        Create new request
-                    </Button>
-                </div>
             </Card.Body>
         </Card>
     )
