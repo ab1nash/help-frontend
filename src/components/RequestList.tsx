@@ -28,7 +28,12 @@ export const RequestList = withRouter(view((props: any) => {
             <Card.Header>My Requests</Card.Header>
             <Card.Body className="overflow-auto">
                 {filteredRequests.map((request: any) => (
-                    <p key={request.id}>{request.id}</p>
+                    <Card bg="light" key={request.id} text="dark" className="mb-3">
+                        <Card.Header>Request {request.id}</Card.Header>
+                        <Card.Body>
+                            <Card.Title>{request.service}</Card.Title>
+                        </Card.Body>
+                    </Card>
                 ))}
             </Card.Body>
             <Card.Footer>

@@ -1,15 +1,30 @@
 import React, {useState, useRef, useEffect} from 'react';
 import { view } from 'react-easy-state';
 import { withRouter } from 'react-router-dom';
-import {Alert, Form, Card, Button, Row, Col, Modal} from "react-bootstrap";
+import { Alert, Form, Card, Button, Row, Col, Modal } from "react-bootstrap";
 
 import * as api from "../api";
 
 
 export const RequestForm = withRouter(view((props: any) => {
 
-    const languages = ["English", "Telugu", "Hindustani"];
-    const services = ["Medical Emergency", "Grocery", "Food", "Money", "Utilities"];
+    const languages = [
+        "English",
+        "Telugu",
+        "Hindustani"
+    ];
+
+    const services = [
+        "Medicines",
+        "Emergency",
+        "Food",
+        "Law and Order",
+        "Electricity",
+        "Water",
+        "Transport",
+        "Sewage",
+        "Garbage"
+    ];
 
     const [citizenName, setCitizenName] = useState('');
     const [language, setLanguage] = useState(languages[0]);
