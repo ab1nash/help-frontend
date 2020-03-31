@@ -7,7 +7,7 @@ import { Card, Button, Row, Col, ButtonGroup, DropdownButton, Dropdown } from "r
 import * as api from "../api";
 
 
-export const RequestList = view(() => {
+export const RequestList = view(({ all }: { all: boolean }) => {
 
     const [requests, setRequests] = useState([]);
     const [services, setServices] = useState([]);
@@ -23,12 +23,12 @@ export const RequestList = view(() => {
 
     useEffect(() => {
         (async () => {
-            const requests = await api.listRequests();
+            const requests = await api.listRequests(all);
             const services = await api.listServices();
             setRequests(requests);
             setServices(services);
         })();
-    }, []);
+    }, [history]);
 
     useEffect(() => {
         setFilteredRequests(requests.filter((request: any) => {
@@ -61,11 +61,11 @@ export const RequestList = view(() => {
         <Card className="h-100 mx-auto" style={{maxWidth: "600px"}}>
             <Card.Header>
                 <Row>
-                    <Col className="my-auto">My Requests</Col>
+                    <Col className="my-auto">{all ? "All" : "My" } Requests</Col>
                     <Col className="text-right">
-                        <Button variant="primary" className="mx-auto" onClick={() => history.push("/create")}>
+                        {!all && <Button variant="primary" className="mx-auto" onClick={() => history.push("/create")}>
                             New Request
-                        </Button>
+                        </Button>}
                     </Col>
                 </Row>
             </Card.Header>

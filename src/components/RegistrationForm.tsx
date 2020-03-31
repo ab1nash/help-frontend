@@ -46,7 +46,7 @@ export const RegistrationForm = withRouter(view((props: any) => {
     const sendOTP = async () => {
         setErrorMessage('');
         try {
-            await api.sendOTP(name, phoneNumber, aboutYou);
+            await api.sendOTP(phoneNumber);
         } catch (e) {
             return setErrorMessage(e.response.data || e.statusText || e.status);
         }
@@ -57,7 +57,7 @@ export const RegistrationForm = withRouter(view((props: any) => {
     const submitOTP = async () => {
         let token: string;
         try {
-            token = await api.verifyOTP(name, phoneNumber, OTP, aboutYou);
+            token = await api.verifyOTP(name, phoneNumber, aboutYou, OTP);
         } catch (e) {
             return setErrorMessage(e.response.data || e.statusText || e.status);
         }

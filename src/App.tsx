@@ -1,22 +1,46 @@
 import React, { useEffect } from 'react';
 import { view } from "react-easy-state";
 import { usePosition } from "use-position";
-import { Container } from 'react-bootstrap';
-import { Switch, Route, Redirect } from "react-router-dom";
+import {Button, Container} from 'react-bootstrap';
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import Div100vh from 'react-div-100vh';
 
 import { MapStore, MapActions } from "./stores/map";
-import { AuthActions } from "./stores/auth";
+import {AuthActions, AuthStore} from "./stores/auth";
 import { Map } from "./components/Map";
 import { RegistrationForm } from "./components/RegistrationForm";
 import { RequestList } from "./components/RequestList";
 import {RequestForm} from "./components/RequestForm";
 import {ProtectedRoute} from "./components/ProtectedRoute";
+import {RequestListSelector} from "./components/RequestListSelector";
+import * as api from "./api";
 
 
 export const App = view(() => {
 
     const { latitude: lat, longitude: lng } = usePosition(false);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                await api.checkUser();
+            } catch (e) {
+                AuthActions.setToken("");
+                return;
+            }
+        })();
+    }, []);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                await api.checkAdmin();
+                AuthActions.setAdmin(true);
+            } catch (e) {
+                AuthActions.setAdmin(false);
+            }
+        })()
+    }, []);
 
     AuthActions.setToken(localStorage.getItem("token"));
     MapActions.setMarkerPosition(lat!, lng!);
@@ -27,7 +51,12 @@ export const App = view(() => {
             <Div100vh style={{height: "50rvh", maxHeight: "50rvh"}}>
                 <Switch>
                     <ProtectedRoute exact path="/">
-                        <RequestList />
+                        {AuthStore.isAdmin && <RequestListSelector /> }
+                        <RequestList all={false} />
+                    </ProtectedRoute>
+                    <ProtectedRoute exact path="/all">
+                        {AuthStore.isAdmin && <RequestListSelector /> }
+                        <RequestList all={true} />
                     </ProtectedRoute>
                     <Route path="/register">
                         <RegistrationForm />

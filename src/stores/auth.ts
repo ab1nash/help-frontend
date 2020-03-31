@@ -4,7 +4,8 @@ import {IAuthStore} from "../interfaces";
 
 
 export const AuthStore: IAuthStore = store({
-    token: null
+    token: null,
+    isAdmin: true
 });
 
 export const AuthActions = {
@@ -15,5 +16,8 @@ export const AuthActions = {
         } else {
             localStorage.removeItem("token");
         }
+    },
+    setAdmin(isAdmin: boolean) {
+        AuthStore.isAdmin = isAdmin
     }
 };

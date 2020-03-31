@@ -10,4 +10,5 @@ export interface IUIStore {
 
 export interface IAuthStore {
     token: string | null
+    isAdmin: boolean
 }

@@ -18,18 +18,23 @@ export const listServices = async (): Promise<[]> => {
     return response.data;
 };
 
-export const sendOTP = async (name: string, phoneNumber: string, about: string) => {
-    const response = await api.post("/user/claim", { name, phoneNumber, about });
+export const sendOTP = async (phoneNumber: string) => {
+    const response = await api.post("/user/claim", { phoneNumber });
     console.log(response.data);
 };
 
-export const verifyOTP = async (name: string, phoneNumber: string, otp: string, about: string): Promise<string> => {
-    const response = await api.post("/user/verify", { name, phoneNumber, otp, about });
+export const verifyOTP = async (name: string, phoneNumber: string, about: string, otp: string): Promise<string> => {
+    const response = await api.post("/user/verify", { name, phoneNumber, about, otp });
     return response.data;
 };
 
-export const checkToken = async () => {
+export const checkUser = async () => {
     const response = await api.get("/user/check");
+    return response.data;
+};
+
+export const checkAdmin = async () => {
+    const response = await api.get("/user/checkAdmin");
     return response.data;
 };
 
@@ -40,8 +45,10 @@ export const getRequest = async (id: string) => {
     return response.data;
 };
 
-export const listRequests = async () => {
-    const response = await api.get("/request/list");
+export const listRequests = async (all: boolean) => {
+    const response = await api.get("/request/list", {
+        params: { all }
+    });
     return response.data;
 };
 
