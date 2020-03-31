@@ -14,20 +14,9 @@ export const RequestForm = withRouter(view((props: any) => {
         "Hindustani"
     ];
 
-    const services = [
-        "Medicines",
-        "Emergency",
-        "Food",
-        "Law and Order",
-        "Electricity",
-        "Water",
-        "Transport",
-        "Sewage",
-        "Garbage"
-    ];
-
     const [citizenName, setCitizenName] = useState('');
     const [language, setLanguage] = useState(languages[0]);
+    const [services, setServices] = useState([]);
     const [contactNumber, setContactNumber] = useState('');
     const [service, setService] = useState(services[0]);
     const [address, setAddress] = useState('');
@@ -46,6 +35,14 @@ export const RequestForm = withRouter(view((props: any) => {
         setErrorMessage('');
         props.history.push("/");
     };
+
+    // fetch services
+    useEffect(() => {
+        (async () => {
+            const services = await api.listServices();
+            setServices(services);
+        })()
+    });
 
     // scroll to error
     useEffect(() => {
