@@ -19,13 +19,7 @@ export const App = view(() => {
     const { latitude: lat, longitude: lng } = usePosition(false);
 
     AuthActions.setToken(localStorage.getItem("token"));
-
-    // set marker from location
-    useEffect(() => {
-        if (lat && lng) {
-            MapActions.setMarkerPosition(lat, lng);
-        }
-    }, [lat, lng]);
+    MapActions.setMarkerPosition(lat!, lng!);
 
     return (
         <>
