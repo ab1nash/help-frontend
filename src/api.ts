@@ -13,6 +13,10 @@ api.interceptors.request.use(cfg => {
     return cfg;
 });
 
+export const listServices = async (): Promise<[]> => {
+    const response = await api.get("/services");
+    return response.data;
+};
 
 export const sendOTP = async (name: string, phoneNumber: string, about: string) => {
     const response = await api.post("/user/claim", { name, phoneNumber, about });
