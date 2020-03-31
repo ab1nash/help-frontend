@@ -94,8 +94,6 @@ export const RegistrationForm = withRouter(view((props: any) => {
                                     onChange={(e: any) => setOTP(e.target.value)} />
                     </Form.Group>}
                 </Form>
-            </Card.Body>
-            <Card.Footer>
                 {!isOTPVisible &&
                 <div className="text-right">
                     <Button variant="success" onClick={sendOTP}>
@@ -115,7 +113,7 @@ export const RegistrationForm = withRouter(view((props: any) => {
                     </Button>
                   </Col>
                 </Row>}
-            </Card.Footer>
+            </Card.Body>
         </Card>
     )
 }));

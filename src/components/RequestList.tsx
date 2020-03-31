@@ -101,14 +101,12 @@ export const RequestList = withRouter(view((props: any) => {
                         </Card.Footer>
                     </Card>
                 ))}
-            </Card.Body>
-            <Card.Footer>
                 <div className="text-center">
                     <Button variant="primary" onClick={() => props.history.push("/create")}>
                         Create new request
                     </Button>
                 </div>
-            </Card.Footer>
+            </Card.Body>
         </Card>
     )
 }));

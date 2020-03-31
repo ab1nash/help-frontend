@@ -101,8 +101,6 @@ export const RequestForm = withRouter(view((props: any) => {
                                       onChange={(e: any) => setComment(e.target.value)} />
                     </Form.Group>
                 </Form>
-            </Card.Body>
-            <Card.Footer>
                 <Row className="w-100 mx-0">
                     <Col className="px-0">
                         <Button variant="light" onClick={() => props.history.push("/")}>
@@ -115,7 +113,7 @@ export const RequestForm = withRouter(view((props: any) => {
                         </Button>
                     </Col>
                 </Row>
-            </Card.Footer>
+            </Card.Body>
         </Card>
     )
 }));
