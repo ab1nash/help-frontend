@@ -30,7 +30,7 @@ export const App = view(() => {
     return (
         <>
             <Map />
-            <Div100vh style={{height: "50rvh"}}>
+            <Div100vh style={{height: "50rvh", maxHeight: "50rvh"}}>
                 <Switch>
                     <ProtectedRoute exact path="/">
                         <RequestList />
