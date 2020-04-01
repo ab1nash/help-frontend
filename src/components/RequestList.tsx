@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react';
 import _ from "lodash";
 import { view } from 'react-easy-state';
 import { useHistory } from 'react-router-dom';
-import { Card, Button, Row, Col, ButtonGroup, DropdownButton, Dropdown } from "react-bootstrap";
+import {Card, Button, Row, Col, ButtonGroup, DropdownButton, Dropdown, Alert} from "react-bootstrap";
 import moment from "moment";
 
 import * as api from "../api";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 export const RequestList = view(({ all }: { all: boolean }) => {
@@ -75,35 +76,40 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                 <Row>
                     <Col className="my-auto">{all ? "All" : "My" } Requests</Col>
                     <Col className="text-right">
-                        {!all && <Button variant="primary" className="mx-auto" onClick={() => history.push("/create")}>
-                            New Request
+                        {!all && <Button variant="primary" className="mx-auto" size="sm" onClick={() => history.push("/create")}>
+                          <FontAwesomeIcon icon="plus" />
                         </Button>}
                     </Col>
                 </Row>
             </Card.Header>
             <Card.Body className="overflow-auto">
 
+                {requests.length > 0 &&
                 <Row className="justify-content-around">
+                  <DropdownButton as={ButtonGroup} size="sm" variant="secondary" title={category || "Category"} id="category-dropdown">
+                    <Dropdown.Item onClick={() => setCategory("")}>All</Dropdown.Item>
+                      {services.map(service => <Dropdown.Item key={service} onClick={(e: any) => setCategory(e.target.text)}>{service}</Dropdown.Item>)}
+                  </DropdownButton>
 
-                    <DropdownButton as={ButtonGroup} size="sm" variant="secondary" title={category || "Category"} id="category-dropdown">
-                        <Dropdown.Item onClick={() => setCategory("")}>All</Dropdown.Item>
-                        {services.map(service => <Dropdown.Item key={service} onClick={(e: any) => setCategory(e.target.text)}>{service}</Dropdown.Item>)}
-                    </DropdownButton>
+                  <DropdownButton as={ButtonGroup}  variant="secondary" title="Status" id="status-dropdown">
+                    <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Open": !status["Open"]}))}>
+                        {status["Open"] ? "Hide" : "Show"} Open
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Closed": !status["Closed"]}))}>
+                        {status["Closed"] ? "Hide" : "Show"} Closed
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Cancelled": !status["Cancelled"]}))}>
+                        {status["Cancelled"] ? "Hide" : "Show"} Cancelled
+                    </Dropdown.Item>
+                  </DropdownButton>
 
-                    <DropdownButton as={ButtonGroup}  variant="secondary" title="Status" id="status-dropdown">
-                        <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Open": !status["Open"]}))}>
-                            {status["Open"] ? "Hide" : "Show"} Open
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Closed": !status["Closed"]}))}>
-                            {status["Closed"] ? "Hide" : "Show"} Closed
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Cancelled": !status["Cancelled"]}))}>
-                            {status["Cancelled"] ? "Hide" : "Show"} Cancelled
-                        </Dropdown.Item>
-                    </DropdownButton>
-
-                </Row>
+                </Row>}
                 <hr />
+                {!requests.length &&
+                <Alert variant="primary" className="text-center">
+                  Tap the "+" sign to create a request
+                </Alert>
+                }
                 {filteredRequests.map((request: any) => (
                     <Card bg="light" border={getBorderColor(request)} key={request.id} text="dark" className="mb-3" onClick={() => history.push(`/view/${request.id}`)}>
                         <Card.Header>
