@@ -20,13 +20,14 @@ export const App = view(() => {
 
     const { latitude: lat, longitude: lng } = usePosition(false);
 
+    AuthActions.setToken(localStorage.getItem("token"));
+
     useEffect(() => {
         (async () => {
             try {
                 await api.checkUser();
             } catch (e) {
-                AuthActions.setToken("");
-                return;
+                return AuthActions.setToken("");
             }
         })();
     }, []);
@@ -35,14 +36,13 @@ export const App = view(() => {
         (async () => {
             try {
                 await api.checkAdmin();
-                AuthActions.setAdmin(true);
             } catch (e) {
-                AuthActions.setAdmin(false);
+                return AuthActions.setAdmin(false);
             }
+            AuthActions.setAdmin(true);
         })()
     }, []);
 
-    AuthActions.setToken(localStorage.getItem("token"));
     MapActions.setMarkerPosition(lat!, lng!);
 
     return (
@@ -54,8 +54,8 @@ export const App = view(() => {
                         {AuthStore.isAdmin && <RequestListSelector /> }
                         <RequestList all={false} />
                     </ProtectedRoute>
-                    <ProtectedRoute exact path="/all">
-                        {AuthStore.isAdmin && <RequestListSelector /> }
+                    <ProtectedRoute exact isAdmin={true} path="/all">
+                        <RequestListSelector />
                         <RequestList all={true} />
                     </ProtectedRoute>
                     <Route path="/register">

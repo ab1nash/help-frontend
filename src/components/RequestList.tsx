@@ -28,7 +28,7 @@ export const RequestList = view(({ all }: { all: boolean }) => {
             setRequests(requests);
             setServices(services);
         })();
-    }, [history]);
+    }, [all]);
 
     useEffect(() => {
         setFilteredRequests(requests.filter((request: any) => {

@@ -7,13 +7,15 @@ import { AuthStore } from "../stores/auth";
 
 export const ProtectedRoute = withRouter(view((props: any) => {
 
-    const { exact, path, ...rest } = props;
+    const { exact, path, isAdmin, ...rest } = props;
 
-    return AuthStore.token ? (
+    const check = isAdmin ? AuthStore.isAdmin : AuthStore.token;
+
+    return check ? (
         <Route exact={exact} path={path}>
             {props.children}
         </Route>
     ) : (
-        <Redirect to="/register" />
+        <Redirect to={isAdmin ? "/" : "/register"} />
     )
 }));
