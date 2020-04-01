@@ -111,7 +111,7 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                   Tap the "+" sign to create a request
                 </Alert>
                 }
-                {requests.length > 0 && filteredRequests.length == 0 &&
+                {requests.length > 0 && filteredRequests.length === 0 &&
                 <Alert variant="primary" className="text-center">
                   No requests match the selected filters
                 </Alert>}
