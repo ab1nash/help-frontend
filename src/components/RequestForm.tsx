@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import {Alert, Form, Card, Button, Row, Col, DropdownButton, ButtonGroup, Dropdown, Table} from "react-bootstrap";
 
 import * as api from "../api";
-import {MapActions} from "../stores/map";
+import {MapActions, MapStore} from "../stores/map";
 
 
 export const RequestForm = view(({ fill }: { fill: boolean }) => {
@@ -39,7 +39,11 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
     const submitRequest = async () => {
         setErrorMessage('');
         try {
-            await api.submitRequest(citizenName, contactNumber, language, service, address, comment);
+            if (MapStore.lat && MapStore.lng) {
+                await api.submitRequest(citizenName, contactNumber, language, service, address, comment);
+            } else {
+                return setErrorMessage("Please set the location by using search or allowing geolocation permission");
+            }
         } catch (e) {
             return setErrorMessage(e.response.data || e.statusText || e.status);
         }
