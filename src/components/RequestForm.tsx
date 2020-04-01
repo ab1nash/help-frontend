@@ -31,7 +31,6 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
     const [address, setAddress] = useState('');
     const [comment, setComment] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [showStamps, setShowStamps] = useState(false);
 
     const history = useHistory();
     const errorRef = useRef(null);
@@ -170,11 +169,8 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
                         <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="closestamp">Closed</Dropdown.Item>
                         <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="cancelstamp">Cancelled</Dropdown.Item>
                       </DropdownButton>
-                      <Button onClick={() => {setShowStamps(!showStamps)}} variant="secondary">Toggle Timestamps</Button>
                     </Row>}
-                    {showStamps &&
-                    <div className="mt-3">
-                      <Table>
+                    <Table className="mt-3 border-bottom">
                         <tbody>
                         {stamps.createstamp && <tr>
                           <td>Opened</td>
@@ -189,9 +185,7 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
                           <td>{moment.utc(stamps.cancelstamp).local().format("dddd, MMMM Do, h:mm a")}</td>
                         </tr>}
                         </tbody>
-                      </Table>
-                    </div>}
-                    <hr />
+                    </Table>
                     { errorMessage && <Alert variant="danger" ref={errorRef}>{ errorMessage }</Alert> }
                     <Form.Group>
                         <Form.Label>Citizen Name</Form.Label>
