@@ -74,42 +74,47 @@ export const RequestList = view(({ all }: { all: boolean }) => {
         <Card className="h-100 mx-auto">
             <Card.Header>
                 <Row>
-                    <Col className="my-auto">{all ? "All" : "My" } Requests</Col>
-                    <Col className="text-right">
-                        {!all && <Button variant="primary" className="mx-auto" size="sm" onClick={() => history.push("/create")}>
+                    <Col xs={4} className="my-auto">{all ? "All" : "My" } Requests</Col>
+                    {requests.length > 0 && <Col xs={8} className="justify-content-around d-flex px-0 text-right">
+                        <DropdownButton as={ButtonGroup} size="sm" variant="secondary" title={category || "All Services"} id="category-dropdown"
+                                        style={{height: "40px"}}>
+                            <Dropdown.Item onClick={() => setCategory("")}>All Services</Dropdown.Item>
+                            {services.map(service => <Dropdown.Item key={service} onClick={(e: any) => setCategory(e.target.text)}>{service}</Dropdown.Item>)}
+                        </DropdownButton>
+                        <DropdownButton as={ButtonGroup}  variant="secondary" title="Status" id="status-dropdown"
+                                        style={{height: "40px"}}>
+                            <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Open": !status["Open"]}))}>
+                                {status["Open"] ? "Hide" : "Show"} Open
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Closed": !status["Closed"]}))}>
+                                {status["Closed"] ? "Hide" : "Show"} Closed
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Cancelled": !status["Cancelled"]}))}>
+                                {status["Cancelled"] ? "Hide" : "Show"} Cancelled
+                            </Dropdown.Item>
+                        </DropdownButton>
+                        {!all && <Button variant="primary" size="sm" onClick={() => history.push("/create")}
+                                         style={{height: "40px"}}>
                           <FontAwesomeIcon icon="plus" />
                         </Button>}
-                    </Col>
+                    </Col>}
+                    {requests.length === 0 &&
+                    <Button variant="primary" className="ml-auto"
+                            onClick={() => history.push("/create")} style={{height: "40px"}}>
+                      <FontAwesomeIcon icon="plus" />
+                    </Button>}
                 </Row>
             </Card.Header>
             <Card.Body className="overflow-auto">
-
-                {requests.length > 0 &&
-                <Row className="justify-content-around">
-                  <DropdownButton as={ButtonGroup} size="sm" variant="secondary" title={category || "Category"} id="category-dropdown">
-                    <Dropdown.Item onClick={() => setCategory("")}>All</Dropdown.Item>
-                      {services.map(service => <Dropdown.Item key={service} onClick={(e: any) => setCategory(e.target.text)}>{service}</Dropdown.Item>)}
-                  </DropdownButton>
-
-                  <DropdownButton as={ButtonGroup}  variant="secondary" title="Status" id="status-dropdown">
-                    <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Open": !status["Open"]}))}>
-                        {status["Open"] ? "Hide" : "Show"} Open
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Closed": !status["Closed"]}))}>
-                        {status["Closed"] ? "Hide" : "Show"} Closed
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Cancelled": !status["Cancelled"]}))}>
-                        {status["Cancelled"] ? "Hide" : "Show"} Cancelled
-                    </Dropdown.Item>
-                  </DropdownButton>
-
-                </Row>}
-                <hr />
                 {!requests.length &&
                 <Alert variant="primary" className="text-center">
                   Tap the "+" sign to create a request
                 </Alert>
                 }
+                {requests.length > 0 && filteredRequests.length == 0 &&
+                <Alert variant="primary" className="text-center">
+                  No requests match the selected filters
+                </Alert>}
                 {filteredRequests.map((request: any) => (
                     <Card bg="light" border={getBorderColor(request)} key={request.id} text="dark" className="mb-3" onClick={() => history.push(`/view/${request.id}`)}>
                         <Card.Header>
