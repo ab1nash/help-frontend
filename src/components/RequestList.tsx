@@ -76,23 +76,23 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                 <Row>
                     <Col xs={4} className="my-auto">{all ? "All" : "My" } Requests</Col>
                     {requests.length > 0 && <Col xs={8} className="justify-content-around d-flex px-0 text-right">
-                        <DropdownButton as={ButtonGroup} size="sm" variant="secondary" title={category || "All Services"} id="category-dropdown"
-                                        style={{height: "40px"}}>
-                            <Dropdown.Item onClick={() => setCategory("")}>All Services</Dropdown.Item>
-                            {services.map(service => <Dropdown.Item key={service} onClick={(e: any) => setCategory(e.target.text)}>{service}</Dropdown.Item>)}
-                        </DropdownButton>
-                        <DropdownButton as={ButtonGroup}  variant="secondary" title="Status" id="status-dropdown"
-                                        style={{height: "40px"}}>
-                            <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Open": !status["Open"]}))}>
-                                {status["Open"] ? "Hide" : "Show"} Open
-                            </Dropdown.Item>
-                            <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Closed": !status["Closed"]}))}>
-                                {status["Closed"] ? "Hide" : "Show"} Closed
-                            </Dropdown.Item>
-                            <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Cancelled": !status["Cancelled"]}))}>
-                                {status["Cancelled"] ? "Hide" : "Show"} Cancelled
-                            </Dropdown.Item>
-                        </DropdownButton>
+                      <DropdownButton as={ButtonGroup} size="sm" variant="secondary" title={category || "All Services"} id="category-dropdown"
+                                      style={{height: "40px"}}>
+                          {services.map(service => <Dropdown.Item key={service} onClick={(e: any) => setCategory(e.target.text)}>{service}</Dropdown.Item>)}
+                        <Dropdown.Item onClick={() => setCategory("")}>All Services</Dropdown.Item>
+                      </DropdownButton>
+                      <DropdownButton as={ButtonGroup}  variant="secondary" title="Status" id="status-dropdown"
+                                      style={{height: "40px"}}>
+                        <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Open": !status["Open"]}))}>
+                            {status["Open"] ? "Hide" : "Show"} Open
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Closed": !status["Closed"]}))}>
+                            {status["Closed"] ? "Hide" : "Show"} Closed
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Cancelled": !status["Cancelled"]}))}>
+                            {status["Cancelled"] ? "Hide" : "Show"} Cancelled
+                        </Dropdown.Item>
+                      </DropdownButton>
                         {!all && <Button variant="primary" size="sm" onClick={() => history.push("/create")}
                                          style={{height: "40px"}}>
                           <FontAwesomeIcon icon="plus" />
