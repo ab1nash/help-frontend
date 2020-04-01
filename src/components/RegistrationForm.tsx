@@ -67,7 +67,7 @@ export const RegistrationForm = withRouter(view((props: any) => {
     };
 
     return (
-        <Card className="h-100 mx-auto" style={{maxWidth: "600px"}}>
+        <Card className="h-100 mx-auto">
             <Card.Header>Register</Card.Header>
             <Card.Body className="overflow-auto">
                 <Form>

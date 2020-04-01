@@ -136,7 +136,7 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
     }, [errorMessage]);
 
     return (
-        <Card className="h-100 mx-auto" style={{maxWidth: "600px"}}>
+        <Card className="h-100 mx-auto">
             <Card.Header>
                 <Row>
                     <Col xs={7} className="my-auto">

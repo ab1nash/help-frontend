@@ -40,7 +40,7 @@ export const Map = view((props: any) => {
         <LoadScript googleMapsApiKey={googleMapsAPIKey} libraries={libraries}>
             <Div100vh style={{height: "50rvh"}}>
                 <GoogleMap zoom={17} center={{lat, lng}}
-                           mapContainerStyle={{height: "100%", maxWidth: "600px", margin: "auto"}}
+                           mapContainerStyle={{height: "100%", margin: "auto"}}
                            options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
                     <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
                         <Form.Control type="text" placeholder="Search" className="position-absolute"
