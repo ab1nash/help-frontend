@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { view } from "react-easy-state";
 import { usePosition } from "use-position";
-import {Button, Container} from 'react-bootstrap';
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import Div100vh from 'react-div-100vh';
 import { BrowserRouter as Router } from "react-router-dom";
@@ -54,12 +53,12 @@ export const App = view(() => {
             <Div100vh style={{height: "50rvh", maxHeight: "50rvh"}}>
                 <Switch>
                     <ProtectedRoute exact path="/">
-                        {/*<Summary />*/}
+                        <Summary />
                         {AuthStore.isAdmin && <RequestListSelector /> }
                         <RequestList all={false} />
                     </ProtectedRoute>
                     <ProtectedRoute exact isAdmin={true} path="/all">
-                        {/*<Summary />*/}
+                        <Summary />
                         <RequestListSelector />
                         <RequestList all={true} />
                     </ProtectedRoute>

@@ -16,3 +16,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.badge-orange {
+  color: white;
+  background-color: orange;
+}
+
+.badge-brown {
+  color: white;
+  background-color: brown;
+}

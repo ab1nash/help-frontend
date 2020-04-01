@@ -127,6 +127,10 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
         })()
     }, []);
 
+    useEffect(() => {
+        setService(services[0]);
+    }, [services]);
+
     // scroll to error
     useEffect(() => {
         if (errorMessage) {
