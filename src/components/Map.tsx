@@ -1,20 +1,20 @@
 import React, {useRef, useState} from 'react';
 import { view } from 'react-easy-state';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api'
 import Div100vh from 'react-div-100vh';
+import colorConvert from "color-convert";
 
 import { MapStore, MapActions } from "../stores/map";
+import {SummaryMarker} from "../interfaces"
 
-
-const googleMapsAPIKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-const libraries = ["drawing", "places"];
 
 export const Map = view((props: any) => {
     const { lat, lng } = MapStore;
     const searchBox = useRef(undefined);
     const location = useLocation();
+    const history = useHistory();
 
 
     const onDragEnd = (e: any) => {
@@ -32,24 +32,29 @@ export const Map = view((props: any) => {
         MapActions.setMarkerPosition(lat, lng);
     };
 
+    const getMarkerIcon = (marker: any) => {
+        return `http://www.googlemapsmarkers.com/v1/${marker.id}/${colorConvert.keyword.hex(marker.color)}/`
+    };
+
     const isCreate = location.pathname === "/create";
     const isView = location.pathname.startsWith("/view");
     const showSingleMarker = isCreate || isView;
+    const showSummaryMarkers = !showSingleMarker;
 
     return (
-        <LoadScript googleMapsApiKey={googleMapsAPIKey} libraries={libraries}>
-            <Div100vh style={{height: "50rvh"}}>
-                <GoogleMap zoom={17} center={{lat, lng}}
-                           mapContainerStyle={{height: "100%", margin: "auto"}}
-                           options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
-                    <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
-                        <Form.Control type="text" placeholder="Search" className="position-absolute"
-                                      style={{width: "360px", height: "50px", top: "10px", left: "calc(50% - 180px)"}} />
-                    </StandaloneSearchBox>
-                    {showSingleMarker &&
-                    <Marker position={{lat, lng}} draggable={isCreate} onDragEnd={onDragEnd} />}
-                </GoogleMap>
-            </Div100vh>
-        </LoadScript>
+        <Div100vh style={{height: "50rvh"}}>
+            <GoogleMap zoom={17} center={{lat, lng}}
+                       mapContainerStyle={{height: "100%", margin: "auto"}}
+                       options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
+                <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
+                    <Form.Control type="text" placeholder="Search" className="position-absolute"
+                                  style={{width: "360px", height: "50px", top: "10px", left: "calc(50% - 180px)"}} />
+                </StandaloneSearchBox>
+                {showSummaryMarkers && MapStore.summaryMarkers.map((marker: SummaryMarker) =>
+                    <Marker key={marker.id} position={marker.coordinates} icon={getMarkerIcon(marker)}
+                            onClick={() => history.push(`/view/${marker.id}`)} />)}
+                {showSingleMarker && <Marker position={{lat, lng}} draggable={isCreate} onDragEnd={onDragEnd} />}
+            </GoogleMap>
+        </Div100vh>
     )
 });
