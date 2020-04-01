@@ -153,7 +153,7 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
                     {fill ? `Request ${id} - ${getRequestStatus()}` : "Create Request"}
                 </div>
                 {fill &&
-                <DropdownButton as={ButtonGroup}  variant="primary" title="Status" id="status-dropdown" className="d-inline-block">
+                <DropdownButton as={ButtonGroup}  variant="outline-primary" title="Status" id="status-dropdown" className="d-inline-block">
                   <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="createstamp">Open</Dropdown.Item>
                   <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="closestamp">Closed</Dropdown.Item>
                   <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="cancelstamp">Cancelled</Dropdown.Item>
