@@ -51,7 +51,7 @@ export const Map = view((props: any) => {
                                   style={{width: "360px", height: "50px", top: "10px", left: "calc(50% - 180px)"}} />
                 </StandaloneSearchBox>
                 {showSummaryMarkers && MapStore.summaryMarkers.map((marker: SummaryMarker) =>
-                    <Marker key={marker.id} position={marker.coordinates} icon={getMarkerIcon(marker)}
+                    <Marker key={marker.id} position={marker.coordinates} label={marker.id}
                             onClick={() => history.push(`/view/${marker.id}`)} />)}
                 {showSingleMarker && <Marker position={{lat, lng}} draggable={isCreate} onDragEnd={onDragEnd} />}
             </GoogleMap>
