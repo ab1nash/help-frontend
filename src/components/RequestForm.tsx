@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import {Alert, Form, Card, Button, Row, Col, DropdownButton, ButtonGroup, Dropdown, Table} from "react-bootstrap";
 
 import * as api from "../api";
+import {MapActions} from "../stores/map";
 
 
 export const RequestForm = view(({ fill }: { fill: boolean }) => {
@@ -58,7 +59,12 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
     };
 
     const loadRequest = async () => {
-        const request = await api.getRequest(id!);
+        let request;
+        try {
+            request = await api.getRequest(id!);
+        } catch (e) {
+            return history.push("/")
+        }
         setCitizenName(request.citizenName);
         setLanguage(request.language);
         setService(request.service);
@@ -69,7 +75,9 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
             "createstamp": request.createstamp,
             "cancelstamp": request.cancelstamp,
             "closestamp": request.closestamp,
-        })
+        });
+        const location = JSON.parse(request.location);
+        MapActions.setMarkerPosition(location.lat, location.lng);
     };
 
     const getRequestStatus = () => {
@@ -162,15 +170,15 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
                         <tbody>
                         {stamps.createstamp && <tr>
                           <td>Opened</td>
-                          <td>{moment.utc(stamps.createstamp).local().format("dddd, MMMM Do YYYY, h:mm:ss a")}</td>
+                          <td>{moment.utc(stamps.createstamp).local().format("dddd, MMMM Do, h:mm a")}</td>
                         </tr>}
                         {stamps.closestamp && <tr>
                           <td>Closed</td>
-                          <td>{moment.utc(stamps.closestamp).local().format("dddd, MMMM Do YYYY, h:mm:ss a")}</td>
+                          <td>{moment.utc(stamps.closestamp).local().format("dddd, MMMM Do, h:mm a")}</td>
                         </tr>}
                         {stamps.cancelstamp && <tr>
                           <td>Cancelled</td>
-                          <td>{moment.utc(stamps.cancelstamp).local().format("dddd, MMMM Do YYYY, h:mm:ss a")}</td>
+                          <td>{moment.utc(stamps.cancelstamp).local().format("dddd, MMMM Do, h:mm a")}</td>
                         </tr>}
                         </tbody>
                       </Table>

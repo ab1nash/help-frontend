@@ -3,6 +3,7 @@ import _ from "lodash";
 import { view } from 'react-easy-state';
 import { useHistory } from 'react-router-dom';
 import { Card, Button, Row, Col, ButtonGroup, DropdownButton, Dropdown } from "react-bootstrap";
+import moment from "moment";
 
 import * as api from "../api";
 
@@ -103,12 +104,11 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                         <Card.Body>
                             <Card.Title>{request.service}</Card.Title>
                             <div className="mt-2">{request.comment}</div>
+                            <hr />
+                            Filed by: {request.userPhoneNumber}
                         </Card.Body>
-                        <Card.Footer>
-                            <Row>
-                                <Col>{request.citizenName}</Col>
-                                <Col className="text-right">{request.contactNumber}</Col>
-                            </Row>
+                        <Card.Footer className="text-center">
+                            Opened at {moment.utc(request.createstamp).local().format("dddd, MMMM Do, h:mm a")}
                         </Card.Footer>
                     </Card>
                 ))}

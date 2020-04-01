@@ -32,6 +32,10 @@ export const Map = view((props: any) => {
         MapActions.setMarkerPosition(lat, lng);
     };
 
+    const isCreate = location.pathname === "/create";
+    const isView = location.pathname.startsWith("/view");
+    const showSingleMarker = isCreate || isView;
+
     return (
         <LoadScript googleMapsApiKey={googleMapsAPIKey} libraries={libraries}>
             <Div100vh style={{height: "50rvh"}}>
@@ -42,8 +46,8 @@ export const Map = view((props: any) => {
                         <Form.Control type="text" placeholder="Search" className="position-absolute"
                                       style={{width: "360px", height: "50px", top: "10px", left: "calc(50% - 180px)"}} />
                     </StandaloneSearchBox>
-                    {location.pathname === "/create" &&
-                    <Marker position={{lat, lng}} draggable={true} onDragEnd={onDragEnd} />}
+                    {showSingleMarker &&
+                    <Marker position={{lat, lng}} draggable={isCreate} onDragEnd={onDragEnd} />}
                 </GoogleMap>
             </Div100vh>
         </LoadScript>
