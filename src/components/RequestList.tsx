@@ -123,13 +123,19 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                                 <Col className="text-right">{getRequestStatus(request)}</Col>
                             </Row>
                         </Card.Header>
-                        <Card.Body>
-                            <Card.Title>{request.service}</Card.Title>
-                            <div className="mt-2">{request.comment}</div>
-                            <hr />
-                            Filed by: {request.userPhoneNumber}
+                        <Card.Body className="py-2 px-3">
+                            <Row>
+                                <Col xs={7}>
+                                    <h5>{request.service}</h5>
+                                    <div>{request.comment}</div>
+                                </Col>
+                                <Col xs={5} className="text-right">
+                                    <div>{request.name}</div>
+                                    <div>{request.userPhoneNumber}</div>
+                                </Col>
+                            </Row>
                         </Card.Body>
-                        <Card.Footer className="text-center">
+                        <Card.Footer className="text-center py-2 px-3">
                             Opened at {moment.utc(request.createstamp).local().format("dddd, MMMM Do, h:mm a")}
                         </Card.Footer>
                     </Card>
