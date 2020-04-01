@@ -154,7 +154,7 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
                     </Col>
                     <Col className="my-auto">
                         <div>
-                            {fill ? `Request ${id} - ${getRequestStatus()}` : "Create Request"}
+                            {fill ? `#${id} - ${getRequestStatus()}` : "Create Request"}
                         </div>
                     </Col>
                     <Col className="text-right">
