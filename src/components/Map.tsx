@@ -1,34 +1,43 @@
-import React, { useRef } from 'react';
+import React, {useEffect, useRef} from 'react';
 import { view } from 'react-easy-state';
 import { useLocation, useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
-import { GoogleMap, LoadScript, Marker, StandaloneSearchBox, useGoogleMap } from '@react-google-maps/api'
+import { GoogleMap, Marker, StandaloneSearchBox } from '@react-google-maps/api'
 import Div100vh from 'react-div-100vh';
 import colorConvert from "color-convert";
 
 import { MapStore, MapActions } from "../stores/map";
 import {SummaryMarker} from "../interfaces"
-import {ZoomWatcher} from "./ZoomWatcher";
 
 
 export const Map = view((props: any) => {
     const { lat, lng } = MapStore;
-    const searchBox = useRef(undefined);
+    const searchRef = useRef(undefined);
+    const mapRef = useRef(undefined);
     const location = useLocation();
     const history = useHistory();
+    const isCreate = location.pathname === "/create";
+    const isView = location.pathname.startsWith("/view");
+    const showSingleMarker = isCreate || isView;
+    const showSummaryMarkers = !showSingleMarker;
 
 
-    const onDragEnd = (e: any) => {
-        MapActions.setMarkerPosition(e.latLng.lat(), e.latLng.lng());
-    };
+    const onMarkerDragEnd = (e: any) => MapActions.setMarkerPosition(e.latLng.lat(), e.latLng.lng());
 
-    const onLoad = (ref: any) => {
-        searchBox.current = ref;
-    };
+    const onSearchLoad = (ref: any) => searchRef.current = ref;
+
+    const onMapLoad = (ref: any) => mapRef.current = ref;
+
+    useEffect(() => {
+        if (showSingleMarker && mapRef.current) {
+            // @ts-ignore
+            mapRef.current!.setZoom(17);
+        }
+    }, [showSingleMarker]);
 
     const onPlacesChanged = () => {
         // @ts-ignore
-        let loc = searchBox.current.getPlaces()[0].geometry.location;
+        let loc = searchRef.current.getPlaces()[0].geometry.location;
         let lat = loc.lat(), lng = loc.lng();
         MapActions.setMarkerPosition(lat, lng);
     };
@@ -37,25 +46,20 @@ export const Map = view((props: any) => {
         return `http://www.googlemapsmarkers.com/v1/${marker.id}/${colorConvert.keyword.hex(marker.color)}/`
     };
 
-    const isCreate = location.pathname === "/create";
-    const isView = location.pathname.startsWith("/view");
-    const showSingleMarker = isCreate || isView;
-    const showSummaryMarkers = !showSingleMarker;
 
     return (
         <Div100vh style={{height: "50rvh"}}>
-            <GoogleMap zoom={17} center={{lat, lng}}
+            <GoogleMap zoom={17} center={{lat, lng}} onLoad={onMapLoad}
                        mapContainerStyle={{height: "100%", margin: "auto"}}
                        options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
-                <ZoomWatcher isUsingSingleMarker={showSingleMarker} />
-                <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
+                <StandaloneSearchBox onLoad={onSearchLoad} onPlacesChanged={onPlacesChanged}>
                     <Form.Control type="text" placeholder="Search" className="position-absolute"
                                   style={{width: "360px", height: "50px", top: "10px", left: "calc(50% - 180px)"}} />
                 </StandaloneSearchBox>
                 {showSummaryMarkers && MapStore.summaryMarkers.map((marker: SummaryMarker) =>
                     <Marker key={marker.id} position={marker.coordinates} label={`#${marker.id}`}
                             onClick={() => history.push(`/view/${marker.id}`)} />)}
-                {showSingleMarker && <Marker position={{lat, lng}} draggable={isCreate} onDragEnd={onDragEnd} />}
+                {showSingleMarker && <Marker position={{lat, lng}} draggable={isCreate} onDragEnd={onMarkerDragEnd} />}
             </GoogleMap>
         </Div100vh>
     )
