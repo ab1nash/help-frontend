@@ -141,7 +141,7 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                             </Row>
                         </Card.Body>
                         <Card.Footer className="text-center py-2 px-3">
-                            Opened at {moment.utc(request.createstamp).local().format("dddd, MMM D, h:mm a")}
+                            Opened {moment.utc(request.createstamp).local().format("dddd, MMM D, h:mm a")}
                         </Card.Footer>
                     </Card>
                 ))}
