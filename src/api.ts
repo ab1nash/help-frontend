@@ -87,3 +87,12 @@ export const submitRequest = async (citizenName: string, contactNumber: string,
     });
     return response.data;
 };
+
+export const makeAdmin = async (phoneNumber: string) => {
+    const response = await api.get("/user/makeAdmin", {
+        params: {
+            phoneNumber
+        }
+    });
+    return response.data;
+};

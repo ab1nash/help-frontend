@@ -4,20 +4,9 @@ import { IUIStore } from "../interfaces";
 
 
 export const UIStore: IUIStore = store({
-    activeModal: "opening-note"
+    isSettingsModalOpen: false
 });
 
 export const UIActions = {
-    hideModal() {
-        UIStore.activeModal = null
-    },
-    showOTP() {
-        UIStore.activeModal = 'otp';
-    },
-    showRequest() {
-        UIStore.activeModal = 'request';
-    },
-    showSuccess() {
-        UIStore.activeModal = 'success';
-    }
+    setSettingsModal: (visibility: boolean) => UIStore.isSettingsModalOpen = visibility
 };

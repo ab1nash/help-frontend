@@ -4,6 +4,7 @@ import { usePosition } from "use-position";
 import {Button, Container} from 'react-bootstrap';
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import Div100vh from 'react-div-100vh';
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { MapStore, MapActions } from "./stores/map";
 import {AuthActions, AuthStore} from "./stores/auth";
@@ -15,6 +16,7 @@ import {ProtectedRoute} from "./components/ProtectedRoute";
 import {RequestListSelector} from "./components/RequestListSelector";
 import * as api from "./api";
 import {Summary} from "./components/Summary";
+import {SettingsModal} from "./components/SettingsModal";
 
 
 export const App = view(() => {
@@ -47,7 +49,7 @@ export const App = view(() => {
     MapActions.setMarkerPosition(lat!, lng!);
 
     return (
-        <>
+        <Router>
             <Map />
             <Div100vh style={{height: "50rvh", maxHeight: "50rvh"}}>
                 <Switch>
@@ -73,6 +75,7 @@ export const App = view(() => {
                     <Redirect to="/" />
                 </Switch>
             </Div100vh>
-        </>
+            <SettingsModal />
+        </Router>
     );
 });

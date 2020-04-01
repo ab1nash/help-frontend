@@ -4,7 +4,7 @@ export interface IMapStore {
 }
 
 export interface IUIStore {
-    activeModal: null | 'opening-note' | 'otp' | 'request' | 'success'
+    isSettingsModalOpen: boolean
 }
 
 export interface IAuthStore {

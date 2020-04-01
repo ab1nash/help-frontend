@@ -2,6 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { view } from "react-easy-state";
 import {Button, ButtonGroup} from "react-bootstrap";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
+import {UIActions} from "../stores/ui";
 
 
 export const RequestListSelector = view(() => {
@@ -12,6 +15,9 @@ export const RequestListSelector = view(() => {
         <ButtonGroup className="w-100">
             <Button style={{borderRadius: 0}} variant="outline-primary" onClick={() => history.push("/all")}>All Requests</Button>
             <Button style={{borderRadius: 0}} variant="outline-primary" onClick={() => history.push("/")}>My Requests</Button>
+            <Button variant="outline-primary" onClick={() => UIActions.setSettingsModal(true)}>
+                <FontAwesomeIcon icon="cog" />
+            </Button>
         </ButtonGroup>
     )
 });
