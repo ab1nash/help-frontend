@@ -38,7 +38,7 @@ export const SettingsModal = view(() => {
                                   onChange={(e: any) => setPhoneNumber(e.target.value)} />
                 </Form.Group>
                 <div className="text-right">
-                    <Button variant="success" onClick={makeAdmin}>Make Admin</Button>
+                    <Button variant="primary" onClick={makeAdmin}>Make Admin</Button>
                 </div>
             </Modal.Body>
         </Modal>

@@ -89,7 +89,6 @@ export const Summary = view(() => {
                                  style={{width: "120px"}} className="mb-2">
                               {entry["service"]} | {entry["data"].length}
                           </Badge>
-                          <p>{entry["service"]}</p>
                       </div>
                   ))}
                   {summary.length === 0 && <p>No requests yet</p>}

@@ -26,3 +26,16 @@ code {
   color: white;
   background-color: brown;
 }
+
+.filter-dropdown {
+}
+
+.filter-dropdown button {
+  background-color: white;
+  border: white;
+  font-size: 15px;
+}
+
+.filter-dropdown button:before {
+  display: none;
+}

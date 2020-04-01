@@ -3,6 +3,7 @@ import moment from "moment";
 import { view } from 'react-easy-state';
 import { useHistory, useParams } from 'react-router-dom';
 import {Alert, Form, Card, Button, Row, Col, DropdownButton, ButtonGroup, Dropdown, Table} from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as api from "../api";
 import {MapActions, MapStore} from "../stores/map";
@@ -144,17 +145,20 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
 
     return (
         <Card className="h-100 mx-auto">
-            <Card.Header>
-                <Row>
-                    <Col xs={7} className="my-auto">
-                        {fill ? `Request ${id} - ${getRequestStatus()}` : "Create Request"}
-                    </Col>
-                    <Col xs={5} className="text-right">
-                        <Button variant="outline-dark" onClick={() => history.push("/")}>
-                            Back to List
-                        </Button>
-                    </Col>
-                </Row>
+            <Card.Header className="justify-content-between d-flex">
+                <Button variant="primary" onClick={() => history.push("/")}>
+                    <FontAwesomeIcon icon="angle-left" />
+                </Button>
+                <div className="my-auto">
+                    {fill ? `Request ${id} - ${getRequestStatus()}` : "Create Request"}
+                </div>
+                {fill &&
+                <DropdownButton as={ButtonGroup}  variant="primary" title="Status" id="status-dropdown" className="d-inline-block">
+                  <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="createstamp">Open</Dropdown.Item>
+                  <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="closestamp">Closed</Dropdown.Item>
+                  <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="cancelstamp">Cancelled</Dropdown.Item>
+                </DropdownButton>}
+                {!fill && <span />}
             </Card.Header>
             <Card.Body className="overflow-auto">
                 <Form>
@@ -162,15 +166,7 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
                       Please drag the red marker to the location where assistance is needed,
                       and fill all the fields.
                     </p>}
-                    {fill &&
-                    <Row className="justify-content-around">
-                      <DropdownButton as={ButtonGroup}  variant="secondary" title="Update Status" id="status-dropdown">
-                        <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="createstamp">Open</Dropdown.Item>
-                        <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="closestamp">Closed</Dropdown.Item>
-                        <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="cancelstamp">Cancelled</Dropdown.Item>
-                      </DropdownButton>
-                    </Row>}
-                    <Table className="mt-3 border-bottom">
+                    <Table className="border-bottom">
                         <tbody>
                         {stamps.createstamp && <tr>
                           <td>Opened</td>
