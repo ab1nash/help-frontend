@@ -145,20 +145,27 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
 
     return (
         <Card className="h-100 mx-auto">
-            <Card.Header className="justify-content-between d-flex">
-                <Button variant="primary" onClick={() => history.push("/")}>
-                    <FontAwesomeIcon icon="arrow-left" />
-                </Button>
-                <div className="my-auto">
-                    {fill ? `Request ${id} - ${getRequestStatus()}` : "Create Request"}
-                </div>
-                {fill &&
-                <DropdownButton as={ButtonGroup}  variant="outline-primary" title="Status" id="status-dropdown" className="d-inline-block">
-                  <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="createstamp">Open</Dropdown.Item>
-                  <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="closestamp">Closed</Dropdown.Item>
-                  <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="cancelstamp">Cancelled</Dropdown.Item>
-                </DropdownButton>}
-                {!fill && <span />}
+            <Card.Header>
+                <Row>
+                    <Col>
+                        <Button variant="primary" onClick={() => history.push("/")}>
+                            <FontAwesomeIcon icon="arrow-left" />
+                        </Button>
+                    </Col>
+                    <Col className="my-auto">
+                        <div>
+                            {fill ? `Request ${id} - ${getRequestStatus()}` : "Create Request"}
+                        </div>
+                    </Col>
+                    <Col className="text-right">
+                        {fill &&
+                        <DropdownButton as={ButtonGroup}  variant="outline-primary" title="Status" id="status-dropdown" className="d-inline-block">
+                          <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="createstamp">Open</Dropdown.Item>
+                          <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="closestamp">Closed</Dropdown.Item>
+                          <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="cancelstamp">Cancelled</Dropdown.Item>
+                        </DropdownButton>}
+                    </Col>
+                </Row>
             </Card.Header>
             <Card.Body className="overflow-auto">
                 <Form>
