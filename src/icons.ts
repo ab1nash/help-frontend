@@ -1,7 +1,7 @@
-import { faCog, faPlus, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faPlus, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default [
-    faAngleLeft,
+    faArrowLeft,
     faPlus,
     faCog
 ]

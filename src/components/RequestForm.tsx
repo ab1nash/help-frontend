@@ -147,7 +147,7 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
         <Card className="h-100 mx-auto">
             <Card.Header className="justify-content-between d-flex">
                 <Button variant="primary" onClick={() => history.push("/")}>
-                    <FontAwesomeIcon icon="angle-left" />
+                    <FontAwesomeIcon icon="arrow-left" />
                 </Button>
                 <div className="my-auto">
                     {fill ? `Request ${id} - ${getRequestStatus()}` : "Create Request"}
