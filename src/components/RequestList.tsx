@@ -131,18 +131,18 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                         </Card.Header>
                         <Card.Body className="py-2 px-3">
                             <Row>
-                                <Col xs={7}>
+                                <Col xs={7} className="pr-0">
                                     <h5>{request.service}</h5>
                                     <div>{request.comment}</div>
                                 </Col>
-                                <Col xs={5} className="text-right">
-                                    <div>{request.name}</div>
-                                    <div>{request.userPhoneNumber}</div>
+                                <Col xs={5} className="mt-auto text-right pl-0">
+                                    <div>{request.citizenName}</div>
+                                    <div>{request.contactNumber}</div>
                                 </Col>
                             </Row>
                         </Card.Body>
                         <Card.Footer className="text-center py-2 px-3">
-                            Opened {moment.utc(request.createstamp).local().format("dddd, MMM D, h:mm a")}
+                            Opened {moment.utc(request.createstamp).local().format("ddd, MMM D, h:mm a")} by {request.name}
                         </Card.Footer>
                     </Card>
                 ))}
