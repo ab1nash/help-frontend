@@ -1,7 +1,7 @@
-import {faCog, faPlus, faCaretLeft, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+import {faCog, faPlus, faArrowLeft, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
 export default [
-    faCaretLeft,
+    faArrowLeft,
     faPlus,
     faCog,
     faInfoCircle
