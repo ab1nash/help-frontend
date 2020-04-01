@@ -45,7 +45,11 @@ export const App = view(() => {
         })()
     }, []);
 
-    MapActions.setMarkerPosition(lat!, lng!);
+    useEffect(() => {
+        if (lat && lng) {
+            MapActions.setMarkerPosition(lat!, lng!);
+        }
+    }, [lat, lng]);
 
     return (
         <Router>

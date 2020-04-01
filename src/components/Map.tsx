@@ -49,7 +49,7 @@ export const Map = view((props: any) => {
 
     return (
         <Div100vh style={{height: "50rvh"}}>
-            <GoogleMap zoom={17} center={{lat, lng}} onLoad={onMapLoad}
+            <GoogleMap zoom={11} center={{lat, lng}} onLoad={onMapLoad}
                        mapContainerStyle={{height: "100%", margin: "auto"}}
                        options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
                 <StandaloneSearchBox onLoad={onSearchLoad} onPlacesChanged={onPlacesChanged}>

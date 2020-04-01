@@ -157,14 +157,14 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
                             {fill ? `#${id} - ${getRequestStatus()}` : "Create Request"}
                         </div>
                     </Col>
+                    {fill &&
                     <Col className="text-right">
-                        {fill &&
                         <DropdownButton as={ButtonGroup}  variant="outline-primary" title="Status" id="status-dropdown" className="d-inline-block">
                           <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="createstamp">Open</Dropdown.Item>
                           <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="closestamp">Closed</Dropdown.Item>
                           <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="cancelstamp">Cancelled</Dropdown.Item>
-                        </DropdownButton>}
-                    </Col>
+                        </DropdownButton>
+                    </Col>}
                 </Row>
             </Card.Header>
             <Card.Body className="overflow-auto">
@@ -177,15 +177,15 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
                         <tbody>
                         {!!stamps.createstamp && <tr>
                           <td>Opened</td>
-                          <td>{moment.utc(stamps.createstamp).local().format("dddd, MMMM Do, h:mm a")}</td>
+                          <td className="text-right">{moment.utc(stamps.createstamp).local().format("dddd, MMMM Do, h:mm a")}</td>
                         </tr>}
                         {!!stamps.closestamp && <tr>
                           <td>Closed</td>
-                          <td>{moment.utc(stamps.closestamp).local().format("dddd, MMMM Do, h:mm a")}</td>
+                          <td className="text-right">{moment.utc(stamps.closestamp).local().format("dddd, MMMM Do, h:mm a")}</td>
                         </tr>}
                         {!!stamps.cancelstamp && <tr>
                           <td>Cancelled</td>
-                          <td>{moment.utc(stamps.cancelstamp).local().format("dddd, MMMM Do, h:mm a")}</td>
+                          <td className="text-right">{moment.utc(stamps.cancelstamp).local().format("dddd, MMMM Do, h:mm a")}</td>
                         </tr>}
                         </tbody>
                     </Table>

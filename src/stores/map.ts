@@ -4,8 +4,8 @@ import {IMapStore, SummaryMarker} from "../interfaces";
 
 
 export const MapStore: IMapStore = store({
-    lat: null,
-    lng: null,
+    lat: 17.3850,
+    lng: 78.4867,
     summaryMarkers: [],
 });
 
