@@ -77,19 +77,20 @@ export const Summary = view(() => {
 
     return (
         <Card>
+            <Card.Header className="text-center" onClick={() => setIsVisible(!isVisible)}>Summary</Card.Header>
+            {isVisible &&
             <Card.Body className="p-0">
-                <Card.Header className="text-center" onClick={() => setIsVisible(!isVisible)}>Summary</Card.Header>
-                {isVisible && <Row className="justify-content-between mx-4 mt-3">
-                    {summary.map((entry: any) => (
-                        // @ts-ignore
-                        <Badge key={entry["service"]} variant={getBsColor(getServiceColor(entry["service"]))} pill={true}
-                               style={{width: "120px"}} className="mb-2">
-                            {entry["service"]} | {entry["data"].length}
-                        </Badge>
-                    ))}
-                    {!summary.length && <p>No requests yet</p>}
-                </Row>}
-            </Card.Body>
+              <Row className="justify-content-between mx-4 mt-3">
+                  {summary.map((entry: any) => (
+                      // @ts-ignore
+                      <Badge key={entry["service"]} variant={getBsColor(getServiceColor(entry["service"]))} pill={true}
+                             style={{width: "120px"}} className="mb-2">
+                          {entry["service"]} | {entry["data"].length}
+                      </Badge>
+                  ))}
+                  {summary.length === 0 && <p>No requests yet</p>}
+              </Row>
+            </Card.Body>}
         </Card>
     )
 });
