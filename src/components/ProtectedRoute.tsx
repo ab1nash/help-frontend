@@ -16,6 +16,6 @@ export const ProtectedRoute = withRouter(view((props: any) => {
             {props.children}
         </Route>
     ) : (
-        <Redirect to={isAdmin ? "/" : "/register"} />
+        <Redirect to="/register" />
     )
 }));
