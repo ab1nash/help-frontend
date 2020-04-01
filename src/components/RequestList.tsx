@@ -74,8 +74,9 @@ export const RequestList = view(({ all }: { all: boolean }) => {
         <Card className="h-100 mx-auto">
             <Card.Header>
                 <Row>
-                    <Col xs={4} className="my-auto">{all ? "All" : "My" } Requests</Col>
-                    {requests.length > 0 && <Col xs={8} className="justify-content-end d-flex px-0 text-right">
+                    <Col className="my-auto">{all ? "All" : "My" } Requests</Col>
+                    {requests.length > 0 &&
+                    <Col className="justify-content-end d-flex px-0 text-right">
                       <DropdownButton id="service-dropdown" variant="outline-primary" title="Filters" className="mr-2">
 
                         <DropdownButton as={ButtonGroup}  variant="light" title="Status" id="status-dropdown"
