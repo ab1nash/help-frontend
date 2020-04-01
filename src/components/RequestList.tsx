@@ -136,13 +136,14 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                                     <div>{request.comment}</div>
                                 </Col>
                                 <Col xs={5} className="mt-auto text-right pl-0">
-                                    <div>{request.citizenName}</div>
-                                    <div>{request.contactNumber}</div>
+                                    <div>for {request.citizenName}</div>
+                                    <a href={`tel:${request.contactNumber}`}>{request.contactNumber}</a>
                                 </Col>
                             </Row>
                         </Card.Body>
                         <Card.Footer className="text-center py-2 px-3">
-                            Opened {moment.utc(request.createstamp).local().format("ddd, MMM D, h:mm a")} by {request.name}
+                            {moment.utc(request.createstamp).local().format("ddd, MMM D, h:mm a")} by
+                            <a href={`tel:${request.userPhoneNumber}`}> {request.name}</a>
                         </Card.Footer>
                     </Card>
                 ))}
