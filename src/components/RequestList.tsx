@@ -98,7 +98,7 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                           <FontAwesomeIcon icon="plus" />
                         </Button>}
                     </Col>}
-                    {requests.length === 0 &&
+                    {!requests.length && !all &&
                     <Button variant="primary" className="ml-auto"
                             onClick={() => history.push("/create")} style={{height: "40px"}}>
                       <FontAwesomeIcon icon="plus" />
@@ -106,7 +106,7 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                 </Row>
             </Card.Header>
             <Card.Body className="overflow-auto">
-                {!requests.length &&
+                {!requests.length && !all &&
                 <Alert variant="primary" className="text-center">
                   Tap the "+" sign to create a request
                 </Alert>

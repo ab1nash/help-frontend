@@ -15,7 +15,6 @@ export const Summary = view(() => {
     useEffect(() => {
         (async () => {
             let result = await api.getSummary();
-            console.log(result);
             setSummary(result);
         })();
     }, []);
@@ -48,8 +47,8 @@ export const Summary = view(() => {
     return (
         <Card>
             <Card.Body className="p-0">
-                <Card.Header className="text-center" onClick={() => setIsVisible(!isVisible)}>Global Data</Card.Header>
-                {isVisible && <Row className="justify-content-between mx-2 mt-3">
+                <Card.Header className="text-center" onClick={() => setIsVisible(!isVisible)}>Summary</Card.Header>
+                {isVisible && <Row className="justify-content-between mx-4 mt-3">
                     {summary.map((entry: any) => (
                         // @ts-ignore
                         <Badge key={entry["service"]} variant={getServiceColor(entry["service"])} pill={true}
@@ -57,6 +56,7 @@ export const Summary = view(() => {
                             {entry["service"]} | {entry["data"].length}
                         </Badge>
                     ))}
+                    {!summary.length && <p>No requests yet</p>}
                 </Row>}
             </Card.Body>
         </Card>
