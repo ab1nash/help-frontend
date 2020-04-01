@@ -80,16 +80,14 @@ export const Summary = view(() => {
             <Card.Header className="text-center" onClick={() => setIsVisible(!isVisible)}>Summary</Card.Header>
             {isVisible &&
             <Card.Body className="p-0">
-              <Row className="justify-content-between mx-4 mt-3">
+              <Row className="justify-content-between mx-4 my-3">
                   {summary.map((entry: any) => (
-                      <div>
-                          <Badge key={entry["service"]}
-                              // @ts-ignore
-                                 variant={getBsColor(getServiceColor(entry["service"]))} pill={true}
-                                 style={{width: "120px"}} className="mb-2">
-                              {entry["service"]} | {entry["data"].length}
-                          </Badge>
-                      </div>
+                      <Badge key={entry["service"]}
+                          // @ts-ignore
+                             variant={getBsColor(getServiceColor(entry["service"]))} pill={true}
+                             style={{width: "120px"}} className="mb-2">
+                          {entry["service"]} | {entry["data"].length}
+                      </Badge>
                   ))}
                   {summary.length === 0 && <p>No requests yet</p>}
               </Row>
