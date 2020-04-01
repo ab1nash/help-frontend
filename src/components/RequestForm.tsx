@@ -168,15 +168,15 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
                     </p>}
                     <Table className="border-bottom">
                         <tbody>
-                        {stamps.createstamp && <tr>
+                        {!!stamps.createstamp && <tr>
                           <td>Opened</td>
                           <td>{moment.utc(stamps.createstamp).local().format("dddd, MMMM Do, h:mm a")}</td>
                         </tr>}
-                        {stamps.closestamp && <tr>
+                        {!!stamps.closestamp && <tr>
                           <td>Closed</td>
                           <td>{moment.utc(stamps.closestamp).local().format("dddd, MMMM Do, h:mm a")}</td>
                         </tr>}
-                        {stamps.cancelstamp && <tr>
+                        {!!stamps.cancelstamp && <tr>
                           <td>Cancelled</td>
                           <td>{moment.utc(stamps.cancelstamp).local().format("dddd, MMMM Do, h:mm a")}</td>
                         </tr>}

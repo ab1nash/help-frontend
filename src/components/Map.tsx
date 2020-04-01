@@ -1,13 +1,14 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef } from 'react';
 import { view } from 'react-easy-state';
 import { useLocation, useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
-import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api'
+import { GoogleMap, LoadScript, Marker, StandaloneSearchBox, useGoogleMap } from '@react-google-maps/api'
 import Div100vh from 'react-div-100vh';
 import colorConvert from "color-convert";
 
 import { MapStore, MapActions } from "../stores/map";
 import {SummaryMarker} from "../interfaces"
+import {ZoomWatcher} from "./ZoomWatcher";
 
 
 export const Map = view((props: any) => {
@@ -46,6 +47,7 @@ export const Map = view((props: any) => {
             <GoogleMap zoom={17} center={{lat, lng}}
                        mapContainerStyle={{height: "100%", margin: "auto"}}
                        options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
+                <ZoomWatcher isUsingSingleMarker={showSingleMarker} />
                 <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
                     <Form.Control type="text" placeholder="Search" className="position-absolute"
                                   style={{width: "360px", height: "50px", top: "10px", left: "calc(50% - 180px)"}} />
