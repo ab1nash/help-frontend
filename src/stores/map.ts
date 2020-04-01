@@ -6,7 +6,6 @@ import { IMapStore } from "../interfaces";
 export const MapStore: IMapStore = store({
     lat: null,
     lng: null,
-    hasMarker: false
 });
 
 export const MapActions = {

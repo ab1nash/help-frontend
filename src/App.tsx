@@ -14,6 +14,7 @@ import {RequestForm} from "./components/RequestForm";
 import {ProtectedRoute} from "./components/ProtectedRoute";
 import {RequestListSelector} from "./components/RequestListSelector";
 import * as api from "./api";
+import {Summary} from "./components/Summary";
 
 
 export const App = view(() => {
@@ -51,10 +52,12 @@ export const App = view(() => {
             <Div100vh style={{height: "50rvh", maxHeight: "50rvh"}}>
                 <Switch>
                     <ProtectedRoute exact path="/">
+                        <Summary />
                         {AuthStore.isAdmin && <RequestListSelector /> }
                         <RequestList all={false} />
                     </ProtectedRoute>
                     <ProtectedRoute exact isAdmin={true} path="/all">
+                        <Summary />
                         <RequestListSelector />
                         <RequestList all={true} />
                     </ProtectedRoute>

@@ -1,7 +1,6 @@
 export interface IMapStore {
     lat: any
     lng: any
-    hasMarker: boolean
 }
 
 export interface IUIStore {

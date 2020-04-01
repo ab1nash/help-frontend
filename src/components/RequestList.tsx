@@ -54,6 +54,17 @@ export const RequestList = view(({ all }: { all: boolean }) => {
         }
     };
 
+    const getBorderColor = (request: any) => {
+        const status = getRequestStatus(request);
+        if (status === "Open") {
+            return "primary";
+        } else if (status === "Closed") {
+            return "success";
+        } else if (status === "Cancelled") {
+            return "warning";
+        }
+    };
+
     useEffect(() => {
         setFilteredRequests(requests);
     }, [requests]);
@@ -94,7 +105,7 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                 </Row>
                 <hr />
                 {filteredRequests.map((request: any) => (
-                    <Card bg="light" key={request.id} text="dark" className="mb-3" onClick={() => history.push(`/view/${request.id}`)}>
+                    <Card bg="light" border={getBorderColor(request)} key={request.id} text="dark" className="mb-3" onClick={() => history.push(`/view/${request.id}`)}>
                         <Card.Header>
                             <Row>
                                 <Col>Request {request.id}</Col>
