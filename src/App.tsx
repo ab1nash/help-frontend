@@ -52,12 +52,12 @@ export const App = view(() => {
             <Div100vh style={{height: "50rvh", maxHeight: "50rvh"}}>
                 <Switch>
                     <ProtectedRoute exact path="/">
-                        <Summary />
+                        {/*<Summary />*/}
                         {AuthStore.isAdmin && <RequestListSelector /> }
                         <RequestList all={false} />
                     </ProtectedRoute>
                     <ProtectedRoute exact isAdmin={true} path="/all">
-                        <Summary />
+                        {/*<Summary />*/}
                         <RequestListSelector />
                         <RequestList all={true} />
                     </ProtectedRoute>
