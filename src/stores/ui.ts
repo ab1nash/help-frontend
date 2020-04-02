@@ -4,7 +4,7 @@ import { IUIStore } from "../interfaces";
 
 
 export const UIStore: IUIStore = store({
-    isSettingsModalOpen: false
+    isSettingsModalOpen: true
 });
 
 export const UIActions = {

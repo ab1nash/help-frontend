@@ -101,3 +101,11 @@ export const getSummary = async () => {
     const response = await api.get("/summary");
     return response.data;
 };
+
+export const downloadCSV = async (statuses: string[], services: string[],
+                                  userPhoneNumber: string, citizenPhoneNumber: string) => {
+    const response = await api.post("/request/download", {
+        statuses, services, userPhoneNumber, citizenPhoneNumber
+    });
+    return response.data;
+};
