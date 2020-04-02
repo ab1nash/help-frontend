@@ -94,7 +94,7 @@ export const SettingsModal = view(() => {
                                       onChange={(e: any) => setCitizenPhoneNumber(e.target.value)} />
                     </Form.Group>
                     <div className="text-right mt-3">
-                        <Button variant="primary" onClick={downloadCSV}>Download</Button>
+                        <Button variant="primary" onClick={downloadCSV} disabled>Download</Button>
                     </div>
                 </div>
             </Modal.Body>
