@@ -4,9 +4,11 @@ import { IUIStore } from "../interfaces";
 
 
 export const UIStore: IUIStore = store({
-    isSettingsModalOpen: false
+    activeModal: null
 });
 
 export const UIActions = {
-    setSettingsModal: (visibility: boolean) => UIStore.isSettingsModalOpen = visibility
+    setActiveModal(modal: any) {
+        UIStore.activeModal = modal;
+    }
 };

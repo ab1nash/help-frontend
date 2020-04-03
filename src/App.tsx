@@ -15,7 +15,8 @@ import {ProtectedRoute} from "./components/ProtectedRoute";
 import {RequestListSelector} from "./components/RequestListSelector";
 import * as api from "./api";
 import {Summary} from "./components/Summary";
-import {SettingsModal} from "./components/SettingsModal";
+import {AdminModal} from "./components/AdminModal";
+import {ExportModal} from "./components/ExportModal";
 
 
 export const App = view(() => {
@@ -78,7 +79,8 @@ export const App = view(() => {
                     <Redirect to="/" />
                 </Switch>
             </Div100vh>
-            <SettingsModal />
+            <AdminModal />
+            <ExportModal />
         </Router>
     );
 });

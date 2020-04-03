@@ -88,12 +88,18 @@ export const submitRequest = async (citizenName: string, contactNumber: string,
     return response.data;
 };
 
-export const makeAdmin = async (phoneNumber: string) => {
-    const response = await api.get("/user/makeAdmin", {
+export const setAdmin = async (phoneNumber: string, finalState: boolean) => {
+    const response = await api.get("/user/setAdmin", {
         params: {
-            phoneNumber
+            phoneNumber,
+            finalState
         }
     });
+    return response.data;
+};
+
+export const getAdmins = async () => {
+    const response = await api.get("/user/getAdmins");
     return response.data;
 };
 
