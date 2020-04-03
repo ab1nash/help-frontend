@@ -54,7 +54,7 @@ export const Map = view((props: any) => {
                        mapContainerStyle={{height: "100%", margin: "auto"}}
                        options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
                 <StandaloneSearchBox onLoad={onSearchLoad} onPlacesChanged={onPlacesChanged}>
-                    <Form.Control type="text" placeholder="Search" className="position-absolute"
+                    <Form.Control type="text" placeholder="Search Locations on Map" className="position-absolute"
                                   style={{width: "360px", height: "50px", top: "10px", left: "calc(50% - 180px)"}} />
                 </StandaloneSearchBox>
                 {showSummaryMarkers && MapStore.summaryMarkers.map((marker: SummaryMarker) =>
