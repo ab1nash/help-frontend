@@ -27,15 +27,7 @@ code {
   background-color: brown;
 }
 
-.filter-dropdown {
-}
-
-.filter-dropdown button {
-  background-color: white;
-  border: white;
-  font-size: 15px;
-}
-
-.filter-dropdown button:before {
-  display: none;
+.requests-list-filter .dropdown-menu.show {
+  width: 100vw;
+  max-width: 600px;
 }

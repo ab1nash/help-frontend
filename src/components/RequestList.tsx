@@ -2,48 +2,41 @@ import React, {useState, useEffect} from 'react';
 import _ from "lodash";
 import { view } from 'react-easy-state';
 import { useHistory } from 'react-router-dom';
-import {Card, Button, Row, Col, ButtonGroup, DropdownButton, Dropdown, Alert} from "react-bootstrap";
+import {Card, Button, Row, Col, ButtonGroup, DropdownButton, Dropdown, Alert, Form} from "react-bootstrap";
 import moment from "moment";
 
 import * as api from "../api";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Select from "react-select";
 
 
 export const RequestList = view(({ all }: { all: boolean }) => {
 
     const [requests, setRequests] = useState([]);
     const [services, setServices] = useState([]);
-    const [category, setCategory] = useState('');
-    const [status, setStatus] = useState({
-        "Open": true,
-        "Closed": true,
-        "Cancelled": true
-    });
+    const statusesList = ['Open', 'Closed', 'Cancelled'];
+    const [statuses, setStatuses] = useState(statusesList);
+    const [servicesList, setServicesList] = useState([]);
     const [filteredRequests, setFilteredRequests] = useState([]);
 
     const history = useHistory();
 
     useEffect(() => {
         (async () => {
-            const requests = await api.listRequests(all);
-            const services = await api.listServices();
-            setRequests(requests);
-            setServices(services);
+            const requestsResponse = await api.listRequests(all);
+            const servicesResponse = await api.listServices();
+            setRequests(requestsResponse);
+            setServices(servicesResponse);
+            setServicesList(servicesResponse);
         })();
     }, [all]);
 
     useEffect(() => {
         setFilteredRequests(requests.filter((request: any) => {
-            let shouldShow = true;
-            if (shouldShow) {
-                shouldShow = category ? request.service === category : true;
-            }
-            if (shouldShow) {
-                shouldShow = status[getRequestStatus(request)]
-            }
-            return shouldShow;
+            return statuses.findIndex((s: string) => s === getRequestStatus(request)) >= 0 &&
+                services.findIndex((s: string) => s === request.service) >= 0;
         }))
-    }, [category, status]);
+    }, [requests, statuses, services]);
 
     const getRequestStatus = (request: any) => {
         if (request.cancelstamp) {
@@ -66,38 +59,22 @@ export const RequestList = view(({ all }: { all: boolean }) => {
         }
     };
 
-    useEffect(() => {
-        setFilteredRequests(requests);
-    }, [requests]);
-
     return (
         <Card className="h-100 mx-auto">
             <Card.Header>
                 <Row>
                     <Col className="my-auto">{all ? "All" : "My" } Requests</Col>
                     {requests.length > 0 &&
-                    <Col className="justify-content-end d-flex px-0 text-right">
-                      <DropdownButton id="service-dropdown" variant="outline-primary" title="Filters" className="mr-2">
-
-                        <DropdownButton as={ButtonGroup}  variant="light" title="Status" id="status-dropdown"
-                                        className="w-100 filter-dropdown" drop="left">
-                          <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Open": !status["Open"]}))}>
-                              {status["Open"] ? "Hide" : "Show"} Open
-                          </Dropdown.Item>
-                          <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Closed": !status["Closed"]}))}>
-                              {status["Closed"] ? "Hide" : "Show"} Closed
-                          </Dropdown.Item>
-                          <Dropdown.Item onClick={() => setStatus(_.extend( {}, status, {"Cancelled": !status["Cancelled"]}))}>
-                              {status["Cancelled"] ? "Hide" : "Show"} Cancelled
-                          </Dropdown.Item>
-                        </DropdownButton>
-
-                        <DropdownButton as={ButtonGroup} variant="light" title={category || "Service"} id="category-dropdown"
-                                        className="w-100 filter-dropdown" drop="left">
-                            {services.map(service => <Dropdown.Item key={service} onClick={(e: any) => setCategory(e.target.text)}>{service}</Dropdown.Item>)}
-                          <Dropdown.Item onClick={() => setCategory("")}>All Services</Dropdown.Item>
-                        </DropdownButton>
-
+                    <Col className="justify-content-end d-flex px-0 text-right requests-list-filter">
+                      <DropdownButton id="filters-dropdown-button" variant="outline-primary" title="Filters" drop="up" className="mr-2">
+                        <div className="text-center mb-1">Status</div>
+                        <Select isMulti defaultValue={statusesList.map((s: string) => ({ value: s, label: s }))}
+                                options={statusesList.map((s: string) => ({ value: s, label: s }))} className="px-3"
+                                placeholder="Status" onChange={(x: any) => setStatuses(x ? x.map((i: any) => i.value) : [])} />
+                        <div className="text-center my-2">Service</div>
+                        <Select isMulti defaultValue={servicesList.map((s: string) => ({ value: s, label: s }))}
+                                options={servicesList.map((s: string) => ({ value: s, label: s }))} className="px-3"
+                                placeholder="Service" onChange={(x: any) => setServices(x ? x.map((i: any) => i.value) : [])} />
                       </DropdownButton>
                         {!all && <Button variant="primary" onClick={() => history.push("/create")}>
                           <FontAwesomeIcon icon="plus" />
