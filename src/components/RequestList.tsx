@@ -98,8 +98,11 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                         </div>
                       </DropdownButton>
                         {all &&
-                        <CSVLink data={filteredRequests.map(request => _.mapValues(request, (value: any) => {
+                        <CSVLink data={filteredRequests.map(request => _.mapValues(request, (value: any, key: any) => {
                             if (!value) return value;
+                            if (key === "location") {
+                                return Object.values(JSON.parse(value)).join(" ")
+                            }
                             return value.replace(",", "_").replace('"', '""')                                         ;
                         }))}>
                             <Button variant="success">
