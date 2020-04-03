@@ -102,7 +102,7 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                             if (!value) return value;
                             return value.replace(",", "_").replace('"', '""')                                         ;
                         }))}>
-                            <Button variant="primary">
+                            <Button variant="success">
                               <FontAwesomeIcon icon="download" />
                             </Button>
                         </CSVLink>}
