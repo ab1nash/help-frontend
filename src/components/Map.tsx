@@ -68,7 +68,7 @@ export const Map = view((props: any) => {
                       Tap pin to open in Google Maps
                     </Alert>}
                   <Marker position={{lat, lng}} draggable={isCreate}
-                          onClick={() => window.open(`http://www.google.com/maps/place/${lat},${lng}`, "_blank")}
+                          onClick={() => isCreate ? {} : window.open(`http://www.google.com/maps/place/${lat},${lng}`, "_blank")}
                           onDragEnd={onMarkerDragEnd} />
                 </>}
             </GoogleMap>
