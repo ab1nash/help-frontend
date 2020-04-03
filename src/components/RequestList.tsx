@@ -15,6 +15,8 @@ export const RequestList = view(({ all }: { all: boolean }) => {
     const [requests, setRequests] = useState([]);
     const [services, setServices] = useState([]);
     const statusesList = ['Open', 'Closed', 'Cancelled'];
+    const [userPhoneNumber, setUserPhoneNumber] = useState('');
+    const [citizenContactNumber, setCitizenContactNumber] = useState('');
     const [statuses, setStatuses] = useState(statusesList);
     const [servicesList, setServicesList] = useState([]);
     const [filteredRequests, setFilteredRequests] = useState([]);
@@ -33,10 +35,17 @@ export const RequestList = view(({ all }: { all: boolean }) => {
 
     useEffect(() => {
         setFilteredRequests(requests.filter((request: any) => {
-            return statuses.findIndex((s: string) => s === getRequestStatus(request)) >= 0 &&
+            let shouldShow = statuses.findIndex((s: string) => s === getRequestStatus(request)) >= 0 &&
                 services.findIndex((s: string) => s === request.service) >= 0;
+            if (shouldShow && userPhoneNumber) {
+                shouldShow = request.userPhoneNumber.startsWith(userPhoneNumber);
+            }
+            if (shouldShow && citizenContactNumber) {
+                shouldShow = request.contactNumber.startsWith(citizenContactNumber);
+            }
+            return shouldShow;
         }))
-    }, [requests, statuses, services]);
+    }, [requests, statuses, services, userPhoneNumber, citizenContactNumber]);
 
     const getRequestStatus = (request: any) => {
         if (request.cancelstamp) {
@@ -67,16 +76,23 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                     {requests.length > 0 &&
                     <Col className="justify-content-end d-flex px-0 text-right requests-list-filter">
                       <DropdownButton id="filters-dropdown-button" variant="outline-primary" title="Filters" drop="up" className="mr-2">
-                        <div className="text-center mb-1">Status</div>
                         <Select defaultValue={statusesList.map((s: string) => ({ value: s, label: s }))}
-                                options={statusesList.map((s: string) => ({ value: s, label: s }))} className="px-3"
+                                options={statusesList.map((s: string) => ({ value: s, label: s }))} className="p-2"
                                 isMulti isSearchable={false} closeMenuOnSelect={false} placeholder="Status"
                                 onChange={(x: any) => setStatuses(x ? x.map((i: any) => i.value) : [])} />
-                        <div className="text-center my-2">Service</div>
                         <Select defaultValue={servicesList.map((s: string) => ({ value: s, label: s }))}
-                                options={servicesList.map((s: string) => ({ value: s, label: s }))} className="px-3"
+                                options={servicesList.map((s: string) => ({ value: s, label: s }))} className="p-2"
                                 onChange={(x: any) => setServices(x ? x.map((i: any) => i.value) : [])}
                                 isMulti isSearchable={false} closeMenuOnSelect={false} placeholder="Service" />
+                          {all &&
+                          <div className="p-2">
+                            <Form.Control type="text" value={userPhoneNumber} placeholder="User Phone Number"
+                                          onChange={(e: any) => setUserPhoneNumber(e.target.value)} />
+                          </div>}
+                        <div className="p-2">
+                          <Form.Control type="text" value={citizenContactNumber} placeholder="Citizen Contact Number"
+                                        onChange={(e: any) => setCitizenContactNumber(e.target.value)} />
+                        </div>
                       </DropdownButton>
                         {!all && <Button variant="primary" onClick={() => history.push("/create")}>
                           <FontAwesomeIcon icon="plus" />
