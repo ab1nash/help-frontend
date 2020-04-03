@@ -8,6 +8,7 @@ import colorConvert from "color-convert";
 
 import { MapStore, MapActions } from "../stores/map";
 import {SummaryMarker} from "../interfaces"
+import { Alert } from 'react-bootstrap';
 
 
 export const Map = view((props: any) => {
@@ -48,7 +49,7 @@ export const Map = view((props: any) => {
 
 
     return (
-        <Div100vh style={{height: "50rvh"}}>
+        <Div100vh style={{height: "50rvh"}} className="position-relative">
             <GoogleMap zoom={11} center={{lat, lng}} onLoad={onMapLoad}
                        mapContainerStyle={{height: "100%", margin: "auto"}}
                        options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>
@@ -59,7 +60,17 @@ export const Map = view((props: any) => {
                 {showSummaryMarkers && MapStore.summaryMarkers.map((marker: SummaryMarker) =>
                     <Marker key={marker.id} position={marker.coordinates} label={`#${marker.id}`}
                             onClick={() => history.push(`/view/${marker.id}`)} />)}
-                {showSingleMarker && <Marker position={{lat, lng}} draggable={isCreate} onDragEnd={onMarkerDragEnd} />}
+                {showSingleMarker &&
+                <>
+                    {!isCreate &&
+                    <Alert variant="primary" className="text-center position-absolute"
+                           style={{bottom: 0, left: "50%", transform: "translateX(-50%)", fontSize: "0.8rem"}}>
+                      Tap pin to open in Google Maps
+                    </Alert>}
+                  <Marker position={{lat, lng}} draggable={isCreate}
+                          onClick={() => window.open(`http://www.google.com/maps/place/${lat},${lng}`, "_blank")}
+                          onDragEnd={onMarkerDragEnd} />
+                </>}
             </GoogleMap>
         </Div100vh>
     )
