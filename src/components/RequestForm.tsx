@@ -152,14 +152,12 @@ export const RequestForm = view(({ fill }: { fill: boolean }) => {
                             <FontAwesomeIcon icon="arrow-left" />
                         </Button>
                     </Col>
-                    <Col className="my-auto">
-                        <div>
-                            {fill ? `#${id} - ${getRequestStatus()}` : "Create Request"}
-                        </div>
+                    <Col className="my-auto text-center">
+                        {fill ? `#${id}` : "Create Request"}
                     </Col>
                     {fill &&
                     <Col className="text-right">
-                        <DropdownButton as={ButtonGroup}  variant="outline-primary" title="Status" id="status-dropdown" className="d-inline-block">
+                        <DropdownButton as={ButtonGroup}  variant="outline-primary" title={`${getRequestStatus()}`} id="status-dropdown" className="d-inline-block">
                           <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="createstamp">Open</Dropdown.Item>
                           <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="closestamp">Closed</Dropdown.Item>
                           <Dropdown.Item onClick={async (e: any) => {await updateRequestStatus(e.target.id)}} id="cancelstamp">Cancelled</Dropdown.Item>
