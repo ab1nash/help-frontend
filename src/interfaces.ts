@@ -11,7 +11,7 @@ export interface IMapStore {
 }
 
 export interface IUIStore {
-    activeModal: 'admin' | 'export' | null
+    activeModal: 'admin' | null
 }
 
 export interface IAuthStore {

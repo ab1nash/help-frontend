@@ -42,7 +42,7 @@ export const ExportModal = view(() => {
     };
 
     return (
-        <Modal show={UIStore.activeModal === 'export'} onHide={onHide}>
+        <Modal show={false} onHide={onHide}>
             <Modal.Header closeButton>
                 Settings
             </Modal.Header>

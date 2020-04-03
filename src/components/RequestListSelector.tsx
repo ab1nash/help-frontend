@@ -18,9 +18,6 @@ export const RequestListSelector = view(() => {
             <Button variant="outline-primary" onClick={() => UIActions.setActiveModal('admin')}>
                 <FontAwesomeIcon icon="user" />
             </Button>
-            <Button variant="outline-primary" onClick={() => UIActions.setActiveModal('export')}>
-                <FontAwesomeIcon icon="download" />
-            </Button>
         </ButtonGroup>
     )
 });

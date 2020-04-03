@@ -5,6 +5,7 @@ import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import Div100vh from 'react-div-100vh';
 import { BrowserRouter as Router } from "react-router-dom";
 
+import * as api from "./api";
 import { MapStore, MapActions } from "./stores/map";
 import {AuthActions, AuthStore} from "./stores/auth";
 import { Map } from "./components/Map";
@@ -13,10 +14,8 @@ import { RequestList } from "./components/RequestList";
 import {RequestForm} from "./components/RequestForm";
 import {ProtectedRoute} from "./components/ProtectedRoute";
 import {RequestListSelector} from "./components/RequestListSelector";
-import * as api from "./api";
 import {Summary} from "./components/Summary";
 import {AdminModal} from "./components/AdminModal";
-import {ExportModal} from "./components/ExportModal";
 
 
 export const App = view(() => {
@@ -80,7 +79,6 @@ export const App = view(() => {
                 </Switch>
             </Div100vh>
             <AdminModal />
-            <ExportModal />
         </Router>
     );
 });

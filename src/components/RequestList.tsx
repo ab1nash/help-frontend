@@ -5,9 +5,11 @@ import { useHistory } from 'react-router-dom';
 import {Card, Button, Row, Col, ButtonGroup, DropdownButton, Dropdown, Alert, Form} from "react-bootstrap";
 import moment from "moment";
 
+import { CSVLink } from "react-csv";
 import * as api from "../api";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Select from "react-select";
+import {UIActions} from "../stores/ui";
 
 
 export const RequestList = view(({ all }: { all: boolean }) => {
@@ -20,6 +22,7 @@ export const RequestList = view(({ all }: { all: boolean }) => {
     const [statuses, setStatuses] = useState(statusesList);
     const [servicesList, setServicesList] = useState([]);
     const [filteredRequests, setFilteredRequests] = useState([]);
+    const [downloadRequests, setDownloadRequests] = useState([{}]);
 
     const history = useHistory();
 
@@ -94,12 +97,22 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                                         onChange={(e: any) => setCitizenContactNumber(e.target.value)} />
                         </div>
                       </DropdownButton>
-                        {!all && <Button variant="primary" onClick={() => history.push("/create")}>
+                        {all &&
+                        <CSVLink data={filteredRequests.map(request => _.mapValues(request, (value: any) => {
+                            if (!value) return value;
+                            return value.replace(",", "_").replace('"', '""')                                         ;
+                        }))}>
+                            <Button variant="primary">
+                              <FontAwesomeIcon icon="download" />
+                            </Button>
+                        </CSVLink>}
+                        {!all &&
+                        <Button variant="primary" onClick={() => history.push("/create")}>
                           <FontAwesomeIcon icon="plus" />
                         </Button>
                         }
                     </Col>}
-                    {!requests.length && !all &&
+                    {requests.length === 0 && !all &&
                     <Button variant="primary" className="ml-auto"
                             onClick={() => history.push("/create")} style={{height: "40px"}}>
                       <FontAwesomeIcon icon="plus" />
@@ -107,11 +120,10 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                 </Row>
             </Card.Header>
             <Card.Body className="overflow-auto">
-                {!requests.length && !all &&
+                {requests.length === 0 && !all &&
                 <Alert variant="primary" className="text-center">
                   Tap the "+" sign to create a request
-                </Alert>
-                }
+                </Alert>}
                 {requests.length > 0 && filteredRequests.length === 0 &&
                 <Alert variant="primary" className="text-center">
                   No requests match the selected filters
