@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { view } from 'react-easy-state';
-import {Alert, Button, Form, Modal} from "react-bootstrap";
+import {Alert, Button, DropdownButton, Form, Modal} from "react-bootstrap";
 import Select from 'react-select';
 
 import * as api from "../api";
@@ -13,6 +13,7 @@ export const SettingsModal = view(() => {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
+    const statusesList = ["Open", "Closed", "Cancelled"];
     const [servicesList, setServicesList] = useState([]);
 
     const [statuses, setStatuses] = useState(['']);
@@ -74,16 +75,16 @@ export const SettingsModal = view(() => {
                 <div>
                     <h6 className="mb-3">Export CSV</h6>
                     <Form.Group className="text-center">
-                        <Select isMulti options={[
-                            { value: 'Open', label: 'Open' },
-                            { value: 'Closed', label: 'Closed' },
-                            { value: 'Cancelled', label: 'Cancelled' }
-                        ]} placeholder="Status" onChange={(x: any) => setStatuses(x.map((i: any) => i.value))} />
+                        <Select defaultValue={statusesList.map((s: string) => ({ value: s, label: s }))}
+                                options={statusesList.map((s: string) => ({ value: s, label: s }))} className="px-3"
+                                isMulti isSearchable={false} closeMenuOnSelect={false} placeholder="Status"
+                                onChange={(x: any) => setStatuses(x ? x.map((i: any) => i.value) : [])} />
                     </Form.Group>
                     <Form.Group className="text-center">
-                        <Select isMulti options={servicesList.map((s: string) => ({
-                            value: s, label: s
-                        }))} placeholder="Services" onChange={(x: any) => setServices(x.map((i: any) => i.value))} />
+                        <Select defaultValue={servicesList.map((s: string) => ({ value: s, label: s }))}
+                                options={servicesList.map((s: string) => ({ value: s, label: s }))} className="px-3"
+                                onChange={(x: any) => setServices(x ? x.map((i: any) => i.value) : [])}
+                                isMulti isSearchable={false} closeMenuOnSelect={false} placeholder="Service" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Control type="text" value={userPhoneNumber} placeholder="User Phone Number"

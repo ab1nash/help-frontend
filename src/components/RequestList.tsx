@@ -68,13 +68,15 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                     <Col className="justify-content-end d-flex px-0 text-right requests-list-filter">
                       <DropdownButton id="filters-dropdown-button" variant="outline-primary" title="Filters" drop="up" className="mr-2">
                         <div className="text-center mb-1">Status</div>
-                        <Select isMulti isSearchable={false} defaultValue={statusesList.map((s: string) => ({ value: s, label: s }))}
+                        <Select defaultValue={statusesList.map((s: string) => ({ value: s, label: s }))}
                                 options={statusesList.map((s: string) => ({ value: s, label: s }))} className="px-3"
-                                placeholder="Status" onChange={(x: any) => setStatuses(x ? x.map((i: any) => i.value) : [])} />
+                                isMulti isSearchable={false} closeMenuOnSelect={false} placeholder="Status"
+                                onChange={(x: any) => setStatuses(x ? x.map((i: any) => i.value) : [])} />
                         <div className="text-center my-2">Service</div>
-                        <Select isMulti isSearchable={false} defaultValue={servicesList.map((s: string) => ({ value: s, label: s }))}
+                        <Select defaultValue={servicesList.map((s: string) => ({ value: s, label: s }))}
                                 options={servicesList.map((s: string) => ({ value: s, label: s }))} className="px-3"
-                                placeholder="Service" onChange={(x: any) => setServices(x ? x.map((i: any) => i.value) : [])} />
+                                onChange={(x: any) => setServices(x ? x.map((i: any) => i.value) : [])}
+                                isMulti isSearchable={false} closeMenuOnSelect={false} placeholder="Service" />
                       </DropdownButton>
                         {!all && <Button variant="primary" onClick={() => history.push("/create")}>
                           <FontAwesomeIcon icon="plus" />
