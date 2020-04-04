@@ -103,16 +103,16 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                         </div>
                       </DropdownButton>
                         {all &&
-                        <CSVLink data={filteredRequests.map(request => _.mapValues(request, (value: any, key: any) => {
+                        <CSVLink filename="covid123_requests.csv" data={filteredRequests.map(request => _.mapValues(request, (value: any, key: any) => {
                             if (!value) return value;
                             if (key === "location") {
                                 return Object.values(JSON.parse(value)).join(" ")
                             }
                             return value.replace(",", "_").replace('"', '""')                                         ;
                         }))}>
-                            <Button variant="success">
-                              <FontAwesomeIcon icon="download" />
-                            </Button>
+                          <Button variant="success">
+                            <FontAwesomeIcon icon="download" />
+                          </Button>
                         </CSVLink>}
                         {!all &&
                         <Button variant="primary" onClick={() => history.push("/create")}>
