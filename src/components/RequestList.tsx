@@ -22,17 +22,19 @@ export const RequestList = view(({ all }: { all: boolean }) => {
     const [statuses, setStatuses] = useState(statusesList);
     const [servicesList, setServicesList] = useState([]);
     const [filteredRequests, setFilteredRequests] = useState([]);
-    const [downloadRequests, setDownloadRequests] = useState([{}]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const history = useHistory();
 
     useEffect(() => {
         (async () => {
+            setIsLoading(true);
             const requestsResponse = await api.listRequests(all);
             const servicesResponse = await api.listServices();
             setRequests(requestsResponse);
             setServices(servicesResponse);
             setServicesList(servicesResponse);
+            setIsLoading(false);
         })();
     }, [all]);
 
@@ -75,7 +77,10 @@ export const RequestList = view(({ all }: { all: boolean }) => {
         <Card className="h-100 mx-auto">
             <Card.Header>
                 <Row>
-                    <Col className="my-auto">{all ? "All" : "My" } Requests</Col>
+                    <Col className="my-auto">
+                        {all ? "All" : "My" } Requests
+                        {isLoading && <FontAwesomeIcon pulse icon="spinner" className="ml-3" />}
+                    </Col>
                     {requests.length > 0 &&
                     <Col className="justify-content-end d-flex px-0 text-right requests-list-filter">
                       <DropdownButton id="filters-dropdown-button" variant="outline-primary" title="Filters" drop="up" className="mr-2">
