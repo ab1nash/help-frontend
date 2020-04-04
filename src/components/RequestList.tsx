@@ -158,7 +158,7 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                         </Card.Body>
                         <Card.Footer className="text-center py-2 px-3">
                             {moment.utc(request.createstamp).local().format("ddd, MMM D, h:mm a")} by
-                            <a href={`tel:${request.userPhoneNumber}`}> {request.name}</a>
+                            <a href={`tel:${request.userPhoneNumber}`}> {request.userName}</a>
                         </Card.Footer>
                     </Card>
                 ))}
