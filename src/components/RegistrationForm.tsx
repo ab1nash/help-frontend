@@ -2,6 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import { view } from 'react-easy-state';
 import { withRouter } from 'react-router-dom';
 import { Alert, Form, Card, Button, Row, Col } from "react-bootstrap";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 import {AuthActions, AuthStore} from "../stores/auth";
 import * as api from "../api";
@@ -15,6 +16,7 @@ export const RegistrationForm = withRouter(view((props: any) => {
     const [aboutYou, setAboutYou] = useState('');
     const [isOTPVisible, setIsOTPVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const token = AuthStore.token;
 
     const otpRef = useRef(null);
@@ -46,7 +48,9 @@ export const RegistrationForm = withRouter(view((props: any) => {
     const sendOTP = async () => {
         setErrorMessage('');
         try {
+            setIsLoading(true);
             await api.sendOTP(phoneNumber);
+            setIsLoading(false);
         } catch (e) {
             return setErrorMessage(e.response.data || e.statusText || e.status);
         }
@@ -57,7 +61,9 @@ export const RegistrationForm = withRouter(view((props: any) => {
     const submitOTP = async () => {
         let token: string;
         try {
+            setIsLoading(true);
             token = await api.verifyOTP(name, phoneNumber, aboutYou, OTP);
+            setIsLoading(false);
         } catch (e) {
             return setErrorMessage(e.response.data || e.statusText || e.status);
         }
@@ -68,7 +74,10 @@ export const RegistrationForm = withRouter(view((props: any) => {
 
     return (
         <Card className="h-100 mx-auto">
-            <Card.Header>Register</Card.Header>
+            <Card.Header>
+                Register
+                {isLoading && <FontAwesomeIcon pulse icon="spinner" className="ml-3" />}
+            </Card.Header>
             <Card.Body className="overflow-auto">
                 <Form>
                     { errorMessage && <Alert variant="danger" ref={errorRef}>{ errorMessage }</Alert> }
