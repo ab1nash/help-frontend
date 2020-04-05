@@ -15,9 +15,9 @@ export const RequestListSelector = view(() => {
         <ButtonGroup className="w-100">
             <Button style={{borderRadius: 0}} variant="outline-primary" onClick={() => history.push("/all")}>All Requests</Button>
             <Button style={{borderRadius: 0}} variant="outline-primary" onClick={() => history.push("/")}>My Requests</Button>
-            <Button variant="outline-primary" onClick={() => UIActions.setActiveModal('admin')}>
-                <FontAwesomeIcon icon="user" />
-            </Button>
+            {/*<Button variant="outline-primary" onClick={() => UIActions.setActiveModal('admin')}>*/}
+            {/*    <FontAwesomeIcon icon="user" />*/}
+            {/*</Button>*/}
         </ButtonGroup>
     )
 });
