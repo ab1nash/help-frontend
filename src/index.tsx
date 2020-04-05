@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import icons from './icons';
@@ -16,7 +17,9 @@ const libraries = ["drawing", "places"];
 
 ReactDOM.render(
     <LoadScript googleMapsApiKey={googleMapsAPIKey} libraries={libraries}>
-        <App />
+        <Router>
+            <App />
+        </Router>
     </LoadScript>,
     document.getElementById('root')
 );

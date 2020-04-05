@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { view } from 'react-easy-state';
+import { useHistory } from 'react-router-dom';
 import {Alert, Button, DropdownButton, Form, Modal} from "react-bootstrap";
 import Select from 'react-select';
 
@@ -14,6 +15,7 @@ export const AdminModal = view(() => {
     const [removeAdminPhoneNumber, setRemoveAdminPhoneNumber] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const history = useHistory();
 
     useEffect(() => {
         getAdmins();
@@ -45,6 +47,7 @@ export const AdminModal = view(() => {
         setErrorMessage('');
         setSuccessMessage('');
         UIActions.setActiveModal(null);
+        history.push("/all");
     };
 
     return (

@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { view } from "react-easy-state";
 import { usePosition } from "use-position";
-import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import Div100vh from 'react-div-100vh';
-import { BrowserRouter as Router } from "react-router-dom";
 
 import * as api from "./api";
 import { MapStore, MapActions } from "./stores/map";
@@ -16,11 +15,16 @@ import {ProtectedRoute} from "./components/ProtectedRoute";
 import {RequestListSelector} from "./components/RequestListSelector";
 import {Summary} from "./components/Summary";
 import {AdminModal} from "./components/AdminModal";
+import {UIActions} from "./stores/ui";
 
 
 export const App = view(() => {
 
     const { latitude: lat, longitude: lng } = usePosition(false);
+    const location = useLocation();
+    if (location.pathname === "/admin") {
+        UIActions.setActiveModal('admin');
+    }
 
     AuthActions.setToken(localStorage.getItem("token"));
 
@@ -52,7 +56,7 @@ export const App = view(() => {
     }, [lat, lng]);
 
     return (
-        <Router>
+        <>
             <Map />
             <Div100vh style={{height: "50rvh", maxHeight: "50rvh"}}>
                 <Switch>
@@ -61,7 +65,12 @@ export const App = view(() => {
                         {AuthStore.isAdmin && <RequestListSelector /> }
                         <RequestList all={false} />
                     </ProtectedRoute>
-                    <ProtectedRoute exact isAdmin={true} path="/all">
+                    <ProtectedRoute isAdmin={true} path="/all">
+                        <Summary />
+                        <RequestListSelector />
+                        <RequestList all={true} />
+                    </ProtectedRoute>
+                    <ProtectedRoute isAdmin={true} path="/admin">
                         <Summary />
                         <RequestListSelector />
                         <RequestList all={true} />
@@ -79,6 +88,6 @@ export const App = view(() => {
                 </Switch>
             </Div100vh>
             <AdminModal />
-        </Router>
+        </>
     );
 });
