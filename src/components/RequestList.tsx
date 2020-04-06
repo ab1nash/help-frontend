@@ -73,6 +73,15 @@ export const RequestList = view(({ all }: { all: boolean }) => {
         }
     };
 
+    const Condense = () => {
+        // let direction = dir ? "up":"down";
+        return(
+            <Button 
+            onClick={(e: any) => UIActions.toggleHeight()}>
+                 <b>^</b></Button>
+        );
+    };
+
     return (
         <Card className="h-100 mx-auto">
             <Card.Header>
@@ -80,6 +89,9 @@ export const RequestList = view(({ all }: { all: boolean }) => {
                     <Col className="my-auto">
                         {all ? "All" : "My" } Requests
                         {isLoading && <FontAwesomeIcon pulse icon="spinner" className="ml-3" />}
+                    </Col>
+                    <Col className="d-flex px-1">
+                    <Condense />
                     </Col>
                     {requests.length > 0 &&
                     <Col className="justify-content-end d-flex px-0 text-right requests-list-filter">

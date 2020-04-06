@@ -7,6 +7,7 @@ import Div100vh from 'react-div-100vh';
 import colorConvert from "color-convert";
 
 import { MapStore, MapActions } from "../stores/map";
+import { UIActions } from "../stores/ui"
 import {SummaryMarker} from "../interfaces"
 import { Alert } from 'react-bootstrap';
 
@@ -49,7 +50,10 @@ export const Map = view((props: any) => {
 
 
     return (
-        <Div100vh style={{height: "50rvh"}} className="position-relative">
+        <Div100vh 
+        key={UIActions.getHeight()} 
+        style={{height: `${UIActions.getHeight()}rvh`}} 
+        className="position-relative">
             <GoogleMap zoom={11} center={{lat, lng}} onLoad={onMapLoad}
                        mapContainerStyle={{height: "100%", margin: "auto"}}
                        options={{mapTypeControl: false, streetViewControl: false, fullscreenControl: false}}>

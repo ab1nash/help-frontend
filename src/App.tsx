@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { view } from "react-easy-state";
+import { view, store } from "react-easy-state";
 import { usePosition } from "use-position";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import Div100vh from 'react-div-100vh';
@@ -15,7 +15,7 @@ import {ProtectedRoute} from "./components/ProtectedRoute";
 import {RequestListSelector} from "./components/RequestListSelector";
 import {Summary} from "./components/Summary";
 import {AdminModal} from "./components/AdminModal";
-import {UIActions} from "./stores/ui";
+import { UIActions } from "./stores/ui";
 
 
 export const App = view(() => {
@@ -58,7 +58,7 @@ export const App = view(() => {
     return (
         <>
             <Map />
-            <Div100vh style={{height: "50rvh", maxHeight: "50rvh"}}>
+            <Div100vh key={UIActions.getHeight()} style={{height: `${100-UIActions.getHeight()}rvh`, maxHeight: "100rvh"}}>
                 <Switch>
                     <ProtectedRoute exact path="/">
                         <Summary />
